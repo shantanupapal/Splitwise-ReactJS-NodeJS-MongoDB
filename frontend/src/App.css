@@ -1,0 +1,330 @@
+* {
+    margin: 0;
+    font-family: Lato;
+}
+.landingPageNav {
+    background-color: #fff;
+}
+.landingPagenNav_img img {
+    width: 65px;
+    height: 65px;
+}
+
+.nav_name {
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+}
+
+.landingPageLogin_name {
+    text-decoration: none;
+    font-size: 15px;
+    padding-right: 0.75rem;
+    color: #1cc29f;
+    overflow: hidden;
+}
+
+.landingPageSignup_name {
+    color: #fff;
+    border-radius: 5px;
+    background-color: #1cc29f;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: inherit;
+    border: 0 solid;
+    box-sizing: inherit;
+    box-shadow: 0 2px 0 0 rgb(55 59 63 / 50%);
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    overflow: hidden;
+}
+
+/* MainNavBar */
+
+.userNameNavBar {
+    padding: 8px 5px 5px;
+    color: #fff;
+    float: none;
+    line-height: 19px;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 25%);
+    margin-right: 15px;
+}
+.mainNavBar {
+    background-color: #1cc29f;
+}
+
+.mainNav_img img {
+    width: 100px;
+    height: auto;
+}
+
+.mainNavLogin_name,
+.dashboardSettleUp {
+    font-size: 15px;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #1cc29f;
+    cursor: pointer;
+    text-decoration: inherit;
+    border: 0 solid;
+    box-sizing: inherit;
+    box-shadow: 1px 1px 1px 1px rgb(55 59 63 / 50%);
+    padding: 0.3rem;
+    overflow: hidden;
+}
+
+.mainNavSignup_name {
+    font-size: 15px;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #ff652f;
+    cursor: pointer;
+    text-decoration: inherit;
+    border: 0 solid;
+    box-sizing: inherit;
+    box-shadow: 1px 1px 1px 1px rgb(55 59 63 / 50%);
+    padding: 0.3rem;
+    overflow: hidden;
+}
+
+.or {
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+/* --------Login.js--------------- */
+
+.loginMain,
+.addGroupMain {
+    margin-top: 180px;
+    font-size: 18px;
+}
+
+.welcomeName {
+    text-transform: uppercase;
+    font-size: 17px;
+    color: #999;
+    font-weight: bold;
+    line-height: 20px;
+}
+
+.forMainLogo img {
+    width: 200px;
+    height: 200px;
+}
+.submitButton {
+    margin-top: 10px;
+    background-color: #ff652f;
+}
+
+.formForLogin,
+.formForNewGroup {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.logInError {
+    border: 1px solid red;
+    border-radius: 5px;
+    color: #ff652f;
+    margin-top: 10px;
+    padding-left: 5px;
+}
+/* ---------Sign Up------------- */
+.formForSignup {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.signUpMain {
+    margin-top: 150px;
+    font-size: 18px;
+}
+
+/*---------------- Left Side Bar---------------- */
+.leftSideNav {
+    /* padding-left: 190px; */
+    margin-top: 20px;
+    height: 100%;
+    width: auto;
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+/* The navigation menu links */
+.leftSideNav a {
+    padding: 6px 8px 0px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+.options {
+    font-size: 17px;
+}
+/* tabel td {
+  vertical-align: baseline;
+} */
+.options img {
+    width: 20px;
+    height: 20px;
+}
+
+.groupHeader {
+    position: relative;
+    margin-left: 5px;
+    background: #f6f6f6;
+    color: #ccc;
+    font-size: 17px;
+    margin-top: 5px;
+    border-top: 1px solid #f3f3f3;
+    border-bottom: 1px solid #eee;
+    padding: 0 5px;
+    z-index: 0;
+}
+
+/* ---------------Dashboard--------------- */
+.centerOfPage {
+    margin-top: 40px;
+    padding-top: 9px;
+    background: #fff;
+    min-height: auto;
+    display: block;
+    /* box-shadow: 1px 1px 1px 1px rgb(55 59 63 / 50%); */
+}
+
+.dashboardHeader {
+    padding: 15px;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    background: #eee;
+    /* justify-content: center; */
+}
+
+.dashboardHeader2 {
+    padding: 10px;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    background: #eee;
+    justify-content: center;
+}
+
+/*------------Add Group ----------------*/
+.hrTagAddGroup {
+    margin: 18px 0;
+    border: 0;
+    border-top: 1px solid #9c9c9c;
+    border-bottom: 1px solid #ffffff;
+    margin-top: -10px;
+    display: block;
+    unicode-bidi: isolate;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    overflow: hidden;
+}
+
+.addPersonRow {
+    position: relative;
+    display: block;
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 10px;
+}
+
+/*----------Profile Page---------*/
+.profileMain {
+    padding-top: 100px;
+    font-size: 12px;
+}
+
+.form-group-profilePage {
+    padding-bottom: 20px;
+}
+
+/*-------------MyGroup----------*/
+.categoryHeader {
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #999;
+    padding: 5px 0;
+    border-bottom: 2px solid #eee;
+}
+/* .categoryMain {
+  border-bottom: 2px solid #eee;
+} */
+
+.groupItem,
+.pendingGroupItem {
+    padding: 10px 0;
+    font-size: 17px;
+    /* background-color: rgb(245, 245, 245); */
+    background-color: #56d4b9;
+    margin: 5px 0;
+    color: white;
+}
+.groupItem:hover {
+    /* background-color: rgb(197, 197, 197); */
+    background-color: #1cc29f;
+    cursor: pointer;
+}
+
+.acceptInvite {
+    font-size: 14px;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #ff652f;
+    cursor: pointer;
+    text-decoration: inherit;
+    border: 0 solid;
+    box-sizing: inherit;
+    box-shadow: 1px 1px 1px 1px rgb(55 59 63 / 50%);
+    padding: 0.3rem;
+    overflow: hidden;
+}
+
+.acceptInvite:hover {
+    cursor: pointer;
+}
+
+/*--------------Modal-------------*/
+.modalHeader {
+    background-color: #1cc29f;
+}
+
+.expenseDescription,
+.currency {
+    height: 30px;
+    line-height: 24px;
+    margin-top: 1px;
+    margin-bottom: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-bottom: 1px dashed #ccc !important;
+    text-decoration: none;
+    border: none;
+    float: right;
+    outline: none;
+    box-shadow: none !important;
+    text-align: left;
+    width: 177px;
+    color: #333;
+
+    border-radius: 0;
+    padding-bottom: 2px;
+}
+
+::placeholder {
+    color: #ccc;
+}
