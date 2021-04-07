@@ -1,37 +1,53 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
-// const pool = require("../pool");
+const { STATUS_CODE, MESSAGES } = require("../utils/constants");
 const kafka = require("../kafka/client");
 
 //Signup
 router.post("/", function (req, res) {
     console.log("Inside Signup POST");
     console.log("Request Body: ", req.body);
+    // let msg = req.body;
+    // if (error) {
+    //     msg.error = error.details[0].message;
+    //     return res
+    //         .status(STATUS_CODE.BAD_REQUEST)
+    //         .send(error.details[0].message);
+    // }
 
     kafka.make_request("signup", req.body, function (err, result) {
         console.log("In results Signup");
         console.log("Results: ", result);
-        if (result) {
-            console.log("User saved successfully.");
-            res.writeHead(200, {
-                "Content-type": "text/plain",
-            });
-            res.end("Adding a user successful!");
-        } else if (result == null) {
-            console.log("User already exists.");
-            res.writeHead(210, {
-                "Content-type": "text/plain",
-            });
-            res.end("Dupplicate user!");
-        }
-
         if (err) {
-            console.log("Unable to fetch user details. Error in Signup.", err);
-            res.writeHead(400, {
-                "Content-type": "text/plain",
+            console.log("Error", err);
+            return res.status(err.status).send(err.data);
+        } else if (result.status === 200) {
+            console.log("User saved successfully.");
+            let userDetails = {
+                user_id: result.data,
+                name: req.body.name,
+                email: req.body.email,
+                phone: "",
+                profilephoto: "defaultProfilePhoto.png",
+                currency: "INR (₹)",
+                timezone: "(GMT-08:00) Pacific Time (US&amp; Canada)",
+                language: "English",
+            };
+            // console.log("Result from db");
+            // console.log(result);
+            res.cookie("cookie", req.body.name, {
+                maxAge: 900000,
+                httpOnly: false,
+                path: "/",
             });
-            res.end("Error in fetching user details!");
+            req.session.user = result;
+            // res.writeHead(200, {
+            //     "Content-type": "text/plain",
+            // });
+            // res.end("Adding a user successful!");
+            return res
+                .status(STATUS_CODE.SUCCESS)
+                .send(JSON.stringify(userDetails));
         }
     });
 });

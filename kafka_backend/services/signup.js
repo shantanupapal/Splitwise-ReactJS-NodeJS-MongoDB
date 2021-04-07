@@ -1,12 +1,14 @@
 "use strict";
 const User = require("../models/users");
-// const { STATUS_CODE, MESSAGES } = require("../../utils/constants");
+const { STATUS_CODE, MESSAGES } = require("../utils/constants");
 var bcrypt = require("bcrypt");
 // var mongooseTypes = require("mongoose").Types;
 
-function handle_request(message, callback) {
+let handle_request = async (message, callback) => {
     console.log("Inside Kafka Backend Signup");
     console.log("Message: ", message);
+
+    let response = {};
 
     const saltRounds = 10;
     //User creation query
@@ -22,16 +24,14 @@ function handle_request(message, callback) {
         (err, user) => {
             if (err) {
                 console.log("Unable to fetch user details.", err);
-                callback(err, null);
+                return callback(err, null);
             } else {
                 if (user) {
+                    let err = {};
                     console.log("User Exists!", user);
-                    // if (message.Accounttype === user.Accounttype) {
-                    //     console.log("Duplicate user");
-                    //     callback(null, null);
-                    // } else {
-                    //     user.Accounttype = 3;
-                    // }
+                    err.status = STATUS_CODE.BAD_REQUEST;
+                    err.data = MESSAGES.USER_ALREADY_EXISTS;
+                    return callback(err, null);
                 } else {
                     //Hashing Password!
                     bcrypt.hash(message.password, saltRounds, (err, hash) => {
@@ -42,7 +42,7 @@ function handle_request(message, callback) {
                             name: message.name,
                             password: hash,
                             email: message.email,
-                            phone: 9800,
+                            phone: "",
                             profilephoto: "defaultProfilePhoto.png",
                             currency: "INR (₹)",
                             timezone:
@@ -53,14 +53,19 @@ function handle_request(message, callback) {
                         user.save().then(
                             (doc) => {
                                 console.log("User saved successfully.", doc);
-                                callback(null, doc);
+                                response.status = STATUS_CODE.SUCCESS;
+                                response.data = doc._id;
+                                return callback(null, response);
+                                // return callback(null, doc);
                             },
                             (err) => {
                                 console.log(
                                     "Unable to save user details.",
                                     err
                                 );
-                                callback(err, null);
+                                err.status = STATUS_CODE.INTERNAL_SERVER_ERROR;
+                                err.data = MESSAGES.INTERNAL_SERVER_ERROR;
+                                return callback(err, null);
                             }
                         );
                     });
@@ -68,7 +73,7 @@ function handle_request(message, callback) {
             }
         }
     );
-}
+};
 // let handle_request = async (msg, callback) => {
 //     let response = {};
 //     let err = {};

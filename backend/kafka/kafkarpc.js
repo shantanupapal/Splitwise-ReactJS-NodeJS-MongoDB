@@ -2,7 +2,7 @@
 const crypto = require("crypto");
 const conn = require("./connection");
 
-const TIMEOUT = 0; //time to wait for response in ms
+const TIMEOUT = 60000; //time to wait for response in ms
 var self;
 
 function KafkaRPC() {

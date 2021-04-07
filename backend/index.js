@@ -1,6 +1,6 @@
 const app = require("./app");
 
-// const login = require("./routes/login");
+const login = require("./routes/login");
 const signup = require("./routes/signup");
 // const logout = require("./routes/logout");
 // const newgroup = require("./routes/newgroup");
@@ -20,7 +20,7 @@ const signup = require("./routes/signup");
 // const leavegroup = require("./routes/leavegroup");
 // const recentactivity = require("./routes/recentactivity");
 
-// app.use("/login", login);
+app.use("/login", login);
 app.use("/signup", signup);
 // app.use("/logout", logout);
 // app.use("/newgroup", newgroup);
