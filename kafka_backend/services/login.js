@@ -16,8 +16,8 @@ let handle_request = async (message, callback) => {
             if (err) {
                 console.log("Unable to fetch user details.", err);
                 let err = {};
-                err.status = STATUS_CODE.BAD_REQUEST;
-                err.data = MESSAGES.USER_NOT_EXIST;
+                err.status = STATUS_CODE.INTERNAL_SERVER_ERROR;
+                err.data = MESSAGES.INTERNAL_SERVER_ERROR;
                 return callback(err, null);
             } else {
                 if (user) {
@@ -42,6 +42,11 @@ let handle_request = async (message, callback) => {
                     // if (!bcrypt.compareSync(msg.password, user.Password)) {
                     //     console.log('Invalid Credentials!');
                     //     callback(null, null);
+                } else {
+                    let err = {};
+                    err.status = STATUS_CODE.NOT_SUCCESS;
+                    err.data = MESSAGES.USER_NOT_EXIST;
+                    return callback(err, null);
                 }
             }
         }

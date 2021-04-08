@@ -4,7 +4,7 @@ const { STATUS_CODE, MESSAGES } = require("../utils/constants");
 const kafka = require("../kafka/client");
 
 //Signup
-router.post("/", function (req, res) {
+router.post("/", (req, res) => {
     console.log("Inside Signup POST");
     console.log("Request Body: ", req.body);
     // let msg = req.body;
@@ -23,6 +23,12 @@ router.post("/", function (req, res) {
             return res.status(err.status).send(err.data);
         } else if (result.status === 200) {
             console.log("User saved successfully.");
+
+            // Create token if the password matched and no error was thrown
+            var token = jwt.sign(result, secret, {
+                expiresIn: 10080, // in seconds
+            });
+
             let userDetails = {
                 user_id: result.data,
                 name: req.body.name,
@@ -32,6 +38,7 @@ router.post("/", function (req, res) {
                 currency: "INR (₹)",
                 timezone: "(GMT-08:00) Pacific Time (US&amp; Canada)",
                 language: "English",
+                token: token,
             };
             // console.log("Result from db");
             // console.log(result);

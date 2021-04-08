@@ -4,28 +4,28 @@ const schema = mongoose.Schema;
 //Schema
 const userSchema = new schema(
     {
-        user_name: {
+        name: {
             type: String,
             // trim: true,
-            unique: true,
+            // unique: true,
             required: true,
         },
-        email_id: {
+        email: {
             type: String,
             // trim: true,
-            unique: true,
+            // unique: true,
             required: true,
         },
         password: {
             type: String,
-            unique: true,
+            // unique: true,
             required: true,
         },
-        phone_number: {
+        phone: {
             type: Number,
             // trim: true,
-            unique: true,
-            required: true,
+            // unique: true,
+            // required: true,
         },
         currency: {
             type: String,
@@ -39,7 +39,7 @@ const userSchema = new schema(
             type: String,
             // trim: true,
         },
-        user_image: {
+        profilephoto: {
             type: String,
             // trim: true,
         },

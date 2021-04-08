@@ -14,8 +14,9 @@ var connectMongoDB = require("./utils/dbConnection");
 // const searchService = require("./services/search");
 // const listService = require("./services/list");
 // const analyticsService = require("./services/analytics");
-const Signup = require("./services/signup");
-const Login = require("./services/login");
+const signupService = require("./services/signup");
+const loginService = require("./services/login");
+const updateProfileService = require("./services/updateprofile");
 
 //MongoDB connection
 connectMongoDB();
@@ -58,8 +59,9 @@ const response = (data, res, err, producer) => {
 };
 
 // Topics
-handleTopicRequest("signup", Signup);
-handleTopicRequest("login", Login);
+handleTopicRequest("signup", signupService);
+handleTopicRequest("login", loginService);
+handleTopicRequest("updateprofile", updateProfileService);
 // handleTopicRequest("profile", profileService);
 // handleTopicRequest("follow", followService);
 // handleTopicRequest("tweets", tweetService);

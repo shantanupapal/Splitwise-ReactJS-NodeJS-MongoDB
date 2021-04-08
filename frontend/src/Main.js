@@ -4,6 +4,7 @@ import LandingPage from "./components/landing/LandingPage";
 import Login from "./components/authorization/Login";
 import SignUp from "./components/authorization/SignUp";
 import Center from "./components/Center";
+import ProfilePage from "./components/dashboard/ProfilePage";
 //Create a Main Component
 class Main extends Component {
     render() {
@@ -14,6 +15,7 @@ class Main extends Component {
                 <Route path="/Login" component={Login} />
                 <Route path="/SignUp" component={SignUp} />
                 <Route path="/Center" component={Center} />
+                <Route path="/ProfilePage" component={ProfilePage} />
             </Switch>
         );
     }

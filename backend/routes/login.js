@@ -12,7 +12,7 @@ var requireAuth = passport.authenticate("jwt", { session: false });
 const secret = "secret";
 
 //Login validation
-router.post("/", function (req, res) {
+router.post("/", (req, res) => {
     console.log("Inside login POST");
     console.log("Request Body: ", req.body);
 
@@ -27,6 +27,11 @@ router.post("/", function (req, res) {
         } else {
             console.log("Inside results Login");
             if (result) {
+                res.cookie("cookie", req.body.name, {
+                    maxAge: 900000,
+                    httpOnly: false,
+                    path: "/",
+                });
                 req.session.user = result;
                 console.log("User: ", result);
 
@@ -44,7 +49,7 @@ router.post("/", function (req, res) {
                     currency: result.currency,
                     timezone: result.timezone,
                     language: result.language,
-                    Token: token,
+                    token: token,
                 };
 
                 return res

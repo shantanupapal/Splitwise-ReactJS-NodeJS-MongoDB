@@ -2,10 +2,10 @@
 module.exports = {
     STATUS_CODE: {
         SUCCESS: 200,
-        CREATED_SUCCESSFULLY: 201,
+        NOT_SUCCESS: 201,
         BAD_REQUEST: 400,
         UNAUTHORIZED: 401,
-        INTERNAL_SERVER_ERROR: 500
+        INTERNAL_SERVER_ERROR: 500,
     },
     MESSAGES: {
         USER_ALREADY_EXISTS: "User Already Exists",
@@ -19,6 +19,6 @@ module.exports = {
         ACTION_NOT_COMPLETE: "Sorry! Please try again later",
         INVALID_INPUTS: "Invalid Inputs",
         DATA_ALREADY_EXISTS: "Data Already Exists",
-        DATA_NOT_FOUND: "Data doesn't Exists"
-    }
-}
+        DATA_NOT_FOUND: "Data doesn't Exists",
+    },
+};
