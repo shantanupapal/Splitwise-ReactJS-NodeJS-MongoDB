@@ -1,6 +1,6 @@
 "use strict";
-var connection = new require("./kafka/connection");
-var connectMongoDB = require("./utils/dbConnection");
+const connection = new require("./kafka/connection");
+const connectMongoDB = require("./utils/dbConnection");
 
 //import topics files
 // const signupService = require("./services/signup");

@@ -1,5 +1,4 @@
-/* eslint-disable */
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import profilePhoto from "../../images/profilePhoto.png";
 import "../../App.css";
 import ProfilePageNav from "../layout/ProfilePageNav";
@@ -86,7 +85,7 @@ const ProfilePage = () => {
                 <div className="row">
                     <div className="col-sm-6">
                         <img
-                            src={profilePhoto}
+                            src={backServer + "/images/" + profilePhoto1}
                             className=""
                             alt="profilepic"
                             style={{

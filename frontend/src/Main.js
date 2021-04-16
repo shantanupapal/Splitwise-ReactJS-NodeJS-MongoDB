@@ -5,6 +5,7 @@ import Login from "./components/authorization/Login";
 import SignUp from "./components/authorization/SignUp";
 import Center from "./components/Center";
 import ProfilePage from "./components/dashboard/ProfilePage";
+import NewGroup from "./components/dashboard/NewGroup";
 //Create a Main Component
 class Main extends Component {
     render() {
@@ -16,6 +17,7 @@ class Main extends Component {
                 <Route path="/SignUp" component={SignUp} />
                 <Route path="/Center" component={Center} />
                 <Route path="/ProfilePage" component={ProfilePage} />
+                <Route path="/NewGroup" component={NewGroup} />
             </Switch>
         );
     }

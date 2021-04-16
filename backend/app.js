@@ -55,4 +55,8 @@ app.use(
 
 app.locals.user_id_photochange = "";
 
+const connectMongoDB = require("./utils/dbConnection");
+//MongoDB connection
+connectMongoDB();
+
 module.exports = app;
