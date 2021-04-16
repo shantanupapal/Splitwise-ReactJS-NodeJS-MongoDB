@@ -23,7 +23,7 @@ let handle_request = async (message, callback) => {
         },
         (err, group) => {
             if (err) {
-                console.log("Unable to fetch user details.", err);
+                console.log("Unable to fetch group details.", err);
                 return callback(err, null);
             } else {
                 if (group) {
@@ -33,94 +33,50 @@ let handle_request = async (message, callback) => {
                     err.data = MESSAGES.USER_ALREADY_EXISTS;
                     return callback(err, null);
                 } else {
-                    var group = new Group({
-                        name : message.name,
-                        created_by : message.
-                    })
-                    //Hashing Password!
-                    bcrypt.hash(message.password, saltRounds, (err, hash) => {
-                        if (err) {
-                            console.log(err);
+                    const members_to_add = [];
+                    message.members.forEach((member) => {
+                        if (member !== message.creator_id) {
+                            const member_details = {
+                                _id: member,
+                                invitation_accepted: 0,
+                            };
+                            members_to_add.push(member_details);
+                        } else {
+                            const member_details = {
+                                _id: member,
+                                invitation_accepted: 1,
+                            };
+                            members_to_add.push(member_details);
                         }
-                        var user = new User({
-                            name: message.name,
-                            password: hash,
-                            email: message.email,
-                            phone: "",
-                            profilephoto: "defaultProfilePhoto.png",
-                            currency: "INR (₹)",
-                            timezone:
-                                "(GMT-08:00) Pacific Time (US&amp; Canada)",
-                            language: "English",
-                        });
-
-                        user.save().then(
-                            (doc) => {
-                                console.log("User saved successfully.", doc);
-                                response.status = STATUS_CODE.SUCCESS;
-                                response.data = doc._id;
-                                return callback(null, response);
-                                // return callback(null, doc);
-                            },
-                            (err) => {
-                                console.log(
-                                    "Unable to save user details.",
-                                    err
-                                );
-                                err.status = STATUS_CODE.INTERNAL_SERVER_ERROR;
-                                err.data = MESSAGES.INTERNAL_SERVER_ERROR;
-                                return callback(err, null);
-                            }
-                        );
                     });
+                    const group = new Group({
+                        groupname: message.groupname,
+                        creator_id: message.creator_id,
+                        members: members_to_add,
+                    });
+                    // console.log("members_to_add: ", members_to_add);
+
+                    // console.log("Group: ", group);
+
+                    group.save().then(
+                        (doc) => {
+                            console.log("Group created successfully.", doc);
+                            response.status = STATUS_CODE.SUCCESS;
+                            response.data = MESSAGES.CREATE_SUCCESSFUL;
+                            return callback(null, response);
+                            // return callback(null, doc);
+                        },
+                        (err) => {
+                            console.log("Unable to create group.", err);
+                            err.status = STATUS_CODE.INTERNAL_SERVER_ERROR;
+                            err.data = MESSAGES.INTERNAL_SERVER_ERROR;
+                            return callback(err, null);
+                        }
+                    );
                 }
             }
         }
     );
 };
-// let handle_request = async (msg, callback) => {
-//     let response = {};
-//     let err = {};
-//     try {
-//         const user = await User.findOne({
-//             email_id: msg.email_id
-//         });
-//         const userName = await User.findOne({
-//             user_name: msg.user_name
-//         });
-//         if (user) {
-//             err.status = STATUS_CODE.BAD_REQUEST;
-//             err.data = MESSAGES.USER_ALREADY_EXISTS;
-//             return callback(err, null);
-//         } else if(userName){
-//             err.status = STATUS_CODE.BAD_REQUEST;
-//             err.data = MESSAGES.USER_NAME_ALREADY_EXISTS;
-//             return callback(err, null);
-//         }
-//         else {
-//             let user = new User({
-//                 first_name: msg.first_name,
-//                 last_name: msg.last_name,
-//                 user_name: msg.user_name,
-//                 email_id: msg.email_id
-//             });
-//             const usersave = await user.save();
-//             if (usersave) {
-//                 response.status = STATUS_CODE.SUCCESS;
-//                 response.data = usersave._id;
-//                 return callback(null, response);
-//             } else {
-//                 err.status = STATUS_CODE.INTERNAL_SERVER_ERROR;
-//                 err.data = MESSAGES.INTERNAL_SERVER_ERROR;
-//                 return callback(err, null);
-//             }
-//         }
-//     } catch (error) {
-//         console.log(error);
-//         err.status = STATUS_CODE.INTERNAL_SERVER_ERROR;
-//         err.data = MESSAGES.INTERNAL_SERVER_ERROR;
-//         return callback(err, null);
-//     }
-// }
 
 exports.handle_request = handle_request;

@@ -7,7 +7,7 @@ const kafka = require("../kafka/client");
 router.post("/", (req, res) => {
     console.log("Inside NewGroup POST");
     console.log("Request Body: ", req.body);
-    
+
     kafka.make_request("newgroup", req.body, function (err, result) {
         console.log("In results Signup");
         console.log("Results: ", result);
@@ -16,51 +16,16 @@ router.post("/", (req, res) => {
             return res.status(err.status).send(err.data);
         } else if (result.status === 200) {
             console.log("Group created successfully.");
-
-            // // Create token if the password matched and no error was thrown
-            // var token = jwt.sign(result, secret, {
-            //     expiresIn: 10080, // in seconds
-            // });
-
-            // let userDetails = {
-            //     user_id: result.data,
-            //     name: req.body.name,
-            //     email: req.body.email,
-            //     phone: "",
-            //     profilephoto: "defaultProfilePhoto.png",
-            //     currency: "INR (₹)",
-            //     timezone: "(GMT-08:00) Pacific Time (US&amp; Canada)",
-            //     language: "English",
-            //     token: token,
-            // };
-            // console.log("Result from db");
-            // console.log(result);
-            // res.cookie("cookie", req.body.name, {
-            //     maxAge: 900000,
-            //     httpOnly: false,
-            //     path: "/",
-            // });
-            // req.session.user = result;
-            // res.writeHead(200, {
-            //     "Content-type": "text/plain",
-            // });
-            // res.end("Adding a user successful!");
-            return res
-                .status(STATUS_CODE.SUCCESS)
-                .send(JSON.stringify(userDetails));
+            return res.status(STATUS_CODE.SUCCESS).send(res.data);
         }
     });
 });
 
 module.exports = router;
 
-
 // const express = require("express");
 // const router = express.Router();
 // const pool = require("../pool");
-
-
-
 
 // router.post("/", (req, res) => {
 //     // console.log("NEW Group details");

@@ -4,28 +4,26 @@ const schema = mongoose.Schema;
 //Schema
 const groupSchema = new schema(
     {
-        name: {
+        groupname: {
             type: String,
             required: true,
         },
-        created_by : {
+        creator_id: {
             type: mongoose.Schema.Types.ObjectId,
-             ref: "user" 
+            ref: "user",
         },
-        members : [
+        members: [
             {
-                member_id: {
-					type: mongoose.Schema.Types.ObjectId,
-					ref: "user",
-				},
-                member_name : {
-                    type: String,
-                    ref : "user"
-                }
-				invitation_accepted: { type: Boolean, default: 0 },
-            }
-        ]
-        
+                _id: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "user",
+                },
+                invitation_accepted: {
+                    type: Boolean,
+                    default: 0,
+                },
+            },
+        ],
     },
     { timestamps: true, versionKey: false }
 );

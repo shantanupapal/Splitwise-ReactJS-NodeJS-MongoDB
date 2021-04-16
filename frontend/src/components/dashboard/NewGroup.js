@@ -35,6 +35,7 @@ class NewGroup extends Component {
     //         </div>
     //     ));
     // }
+
     componentWillMount = () => {
         //FETCH ALL USERNAMES AND STORE IN LOCALSTORAGE
         console.log("DID MOUNT");
@@ -42,18 +43,17 @@ class NewGroup extends Component {
             .then((response) => {
                 console.log(typeof response.data);
                 console.log(response.data);
-                // localStorage.setItem("allUsers", JSON.stringify(response.data));
+                localStorage.setItem("allUsers", JSON.stringify(response.data));
             })
             .then(() => {
-                // const allUsers = JSON.parse(localStorage.getItem("allUsers"));
-                // const usersFromLocal = Object.values(allUsers);
-                // console.log(usersFromLocal);
-                // const names = [];
-                // usersFromLocal.forEach((item) => names.push(item.name));
-                // console.log(names);
-                // this.setState({ ...this.state, allUsers: names });
+                const allUsers = JSON.parse(localStorage.getItem("allUsers"));
+                const usersFromLocal = Object.values(allUsers);
+                console.log(usersFromLocal);
+                const names = [];
+                usersFromLocal.forEach((item) => names.push(item.name));
+                console.log(names);
+                this.setState({ ...this.state, allUsers: names });
             });
-        // swal("Oops!", "Something went wrong!", "error");
     };
 
     handleChange = (i, event) => {
@@ -74,14 +74,6 @@ class NewGroup extends Component {
         this.setState({ ...this.state, memberSuggestions });
 
         console.log("state after suggest: ", this.state);
-        // if (this.state.suggestions.length > 0) {
-        //     let groupMembers = [...this.state.groupMembers];
-        //     groupMembers[i].groupMember = event.target.value;
-        //     this.setState({ ...this.state, groupMembers });
-        //     console.log(this.state);
-        // }
-
-        //earlier
     };
 
     showSuggestions = () => {
@@ -110,13 +102,8 @@ class NewGroup extends Component {
         console.log("I:", i);
         let groupMembers = [...this.state.groupMembers];
         groupMembers.splice(i, 1);
-        // delete groupMembers[i];
         this.setState({ ...this.state, groupMembers: groupMembers });
         console.log("state after remove1:", this.state);
-        // console.log("state after remove2:", this.state);
-        // console.log("state after remove3:", this.state);
-        // console.log("state after remove4:", this.state);
-        // console.log("state after remove5:", this.state);
     };
 
     handleSubmit = (event) => {
@@ -124,10 +111,6 @@ class NewGroup extends Component {
         Axios.defaults.withCredentials = true;
         const groupMembers = [...this.state.groupMembers];
         console.log("Members: ", groupMembers);
-        // const members_id_to_add = [];
-        // const creator_id = parseInt(localStorage.getItem("user_id"));
-        // members_id_to_add.push(creator_id);
-        // console.log("Memberssss: ", members_id_to_add);
 
         if (this.state.groupName === null) {
             swal("Oops!", "Please enter a group name", "error");
@@ -135,59 +118,36 @@ class NewGroup extends Component {
         } else {
             if (groupMembers.length === 1) {
                 swal("Oops!", "Please add a member to the group", "error");
-                // alert("Please add a member to the group");
             } else {
                 let invalid_users_flag = false;
                 const allUsers = JSON.parse(localStorage.getItem("allUsers"));
                 const usersFromLocal = Object.values(allUsers);
-                // console.log(usersFromLocal);
+                console.log("usersfromlocal: ", usersFromLocal);
                 const names = [];
                 const ids = [];
                 usersFromLocal.forEach((item) => {
                     names.push(item.name);
-                    ids.push(item.user_id);
+                    ids.push(item._id);
                 });
-                // console.log(ids);
-                // const ids_names = Object.assign(
-                //     ...ids.map((k, i) => ({ [k]: names[i] }))
-                // );
-                // console.log("ids_names: ", ids_names);
 
                 console.log(groupMembers);
                 const members_id_to_add = [];
-                const creator_id = parseInt(localStorage.getItem("user_id"));
+                const creator_id = localStorage.getItem("user_id");
                 members_id_to_add.push(creator_id);
                 const invalid_members = [];
                 groupMembers.forEach((member) => {
                     if (names.includes(member.groupMember)) {
-                        // console.log("Present", ids[names.indexOf(member.groupMember)]);
                         members_id_to_add.push(
                             ids[names.indexOf(member.groupMember)]
                         );
                         console.log("Members to add ", members_id_to_add);
-                        //Write members to add
-                        // ids_names.forEach((item)=>{
-
-                        // })
                     } else {
                         invalid_members.push(member.groupMember);
                         console.log(invalid_members);
-                        // console.log("Not Present", member.groupMember);
-                        // alert(
-                        //     member.groupMember +
-                        //         " is not a registered user. This user will not be added to the group"
-                        // );
                         invalid_users_flag = true;
                     }
                 });
                 if (invalid_users_flag) {
-                    // swal(
-                    //     "Oops!",
-                    //     "Not Registered: " +
-                    //         invalid_members +
-                    //         ". These users will not be added to the group.",
-                    //     "error"
-                    // );
                     alert(
                         "Not Registered: " +
                             invalid_members +
@@ -210,7 +170,6 @@ class NewGroup extends Component {
                     });
             }
         }
-
     };
 
     render() {
