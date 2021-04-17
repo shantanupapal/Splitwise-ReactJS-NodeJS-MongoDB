@@ -18,6 +18,7 @@ const signupService = require("./services/signup");
 const loginService = require("./services/login");
 const updateProfileService = require("./services/updateprofile");
 const newgroup = require("./services/newgroup");
+const usergroups = require("./services/usergroups");
 
 //MongoDB connection
 connectMongoDB();
@@ -64,6 +65,7 @@ handleTopicRequest("signup", signupService);
 handleTopicRequest("login", loginService);
 handleTopicRequest("updateprofile", updateProfileService);
 handleTopicRequest("newgroup", newgroup);
+handleTopicRequest("usergroups", usergroups);
 // handleTopicRequest("profile", profileService);
 // handleTopicRequest("follow", followService);
 // handleTopicRequest("tweets", tweetService);

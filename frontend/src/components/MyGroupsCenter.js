@@ -16,7 +16,8 @@ class MyGroupsCenter extends Component {
 
     componentDidMount = () => {
         //FETCH groups for the user_ID
-        const user_id = parseInt(localStorage.getItem("user_id"));
+        const user_id = localStorage.getItem("user_id");
+        console.log("user:", user_id);
         Axios.post(`${backServer}/usergroups`, { user_id: user_id })
             .then((response) => {
                 console.log("All groups:");
@@ -26,7 +27,7 @@ class MyGroupsCenter extends Component {
                 const myPendingGroups = [];
                 this.setState({ allGroups: response.data });
                 allGroups.forEach((group) => {
-                    if (group.invitation_accepted === 1) {
+                    if (group.members[0].invitation_accepted === true) {
                         myGroups.push(group);
                     } else {
                         myPendingGroups.push(group);
