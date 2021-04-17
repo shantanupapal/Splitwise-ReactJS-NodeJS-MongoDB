@@ -24,30 +24,10 @@ let handle_request = (message, callback) => {
                 return callback(err, null);
             } else if (result) {
                 console.log("Userdetails", result);
-                return callback(null, result);
-
-                // user.name = message.name;
-                // user.language = message.language;
-                // // user.email = message.body.email;
-                // user.timezone = message.timezone;
-                // user.currency = message.currency;
-                // user.phone = message.phone;
-                // // user.ProfileImage = message.body.ProfileImage;
-
-                // user.save().then(
-                //     (doc) => {
-                //         console.log("User details saved successfully.", doc);
-                //         // response.status = STATUS_CODE.SUCCESS;
-                //         // response.data = doc._id;
-                //         return callback(null, doc);
-                //     },
-                //     (err) => {
-                //         console.log("Unable to save user details.", err);
-                //         err.status = STATUS_CODE.INTERNAL_SERVER_ERROR;
-                //         err.data = MESSAGES.INTERNAL_SERVER_ERROR;
-                //         return callback(err, null);
-                //     }
-                // );
+                let response = {};
+                response.status = STATUS_CODE.SUCCESS;
+                response.data = MESSAGES.UPDATE_SUCCESSFUL;
+                return callback(null, response);
             }
         }
     );

@@ -96,15 +96,15 @@ class MyGroupsCenter extends Component {
                 //Change state here
                 const myGroups = this.state.myGroups;
                 this.state.myPendingGroups.forEach((group) => {
-                    if (group.group_id === id) {
+                    if (group._id === id) {
                         myGroups.push(group);
                     }
                 });
                 const myPendingGroups = this.state.myPendingGroups.filter(
                     (group) => {
-                        console.log(typeof group.group_id);
+                        console.log(typeof group._id);
                         console.log(typeof id);
-                        return group.group_id !== id;
+                        return group._id !== id;
                     }
                 );
 

@@ -15,8 +15,8 @@ router.post("/", (req, res) => {
             console.log("Error", err);
             return res.status(err.status).send(err.data);
         } else if (result.status === 200) {
-            console.log("Group created successfully.");
-            // return res.status(STATUS_CODE.SUCCESS).send(res.data);
+            console.log("Invitation accept successfully.");
+            return res.status(result.status).send(result.data);
         }
     });
 });

@@ -19,7 +19,7 @@ let handle_request = async (message, callback) => {
 
     Group.findOne(
         {
-            name: message.name,
+            groupname: message.name,
         },
         (err, group) => {
             if (err) {
