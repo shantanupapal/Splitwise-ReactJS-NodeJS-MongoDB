@@ -19,6 +19,7 @@ const loginService = require("./services/login");
 const updateProfileService = require("./services/updateprofile");
 const newgroup = require("./services/newgroup");
 const usergroups = require("./services/usergroups");
+const acceptgroupinvite = require("./services/acceptgroupinvite");
 
 //MongoDB connection
 connectMongoDB();
@@ -66,6 +67,8 @@ handleTopicRequest("login", loginService);
 handleTopicRequest("updateprofile", updateProfileService);
 handleTopicRequest("newgroup", newgroup);
 handleTopicRequest("usergroups", usergroups);
+handleTopicRequest("acceptgroupinvite", acceptgroupinvite);
+// handleTopicRequest("usergroups", usergroups);
 // handleTopicRequest("profile", profileService);
 // handleTopicRequest("follow", followService);
 // handleTopicRequest("tweets", tweetService);

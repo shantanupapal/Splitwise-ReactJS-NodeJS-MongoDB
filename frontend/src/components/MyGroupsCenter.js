@@ -86,7 +86,7 @@ class MyGroupsCenter extends Component {
         // console.log(typeof id);
 
         //Accept invitations in backend
-        const user_id = parseInt(localStorage.getItem("user_id"));
+        const user_id = localStorage.getItem("user_id");
         Axios.post(`${backServer}/acceptgroupinvite`, {
             user_id: user_id,
             group_id: id,

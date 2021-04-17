@@ -9,19 +9,16 @@ const MyGroups = ({ myGroups, myPendingGroups, acceptGroup, leaveGroup }) => {
     const groupsList = myGroups.length ? (
         myGroups.map((group) => {
             return (
-                <div key={group.group_id} className={"groupItem"}>
+                <div key={group._id} className={"groupItem"}>
                     <div className="container">
                         <div className="row">
                             <div className="col">
                                 {" "}
                                 <Link
                                     onClick={() => {
-                                        groupToLS(
-                                            group.groupname,
-                                            group.group_id
-                                        );
+                                        groupToLS(group.groupname, group._id);
                                     }}
-                                    to={"/groups/" + group.group_id}
+                                    to={"/groups/" + group._id}
                                     style={{
                                         textDecoration: "None",
                                         color: "white",
@@ -36,7 +33,7 @@ const MyGroups = ({ myGroups, myPendingGroups, acceptGroup, leaveGroup }) => {
                                 <span
                                     className="acceptInvite"
                                     onClick={() => {
-                                        leaveGroup(group.group_id);
+                                        leaveGroup(group._id);
                                     }}
                                 >
                                     Leave
@@ -56,7 +53,7 @@ const MyGroups = ({ myGroups, myPendingGroups, acceptGroup, leaveGroup }) => {
     const pendingGroupsList = myPendingGroups.length ? (
         myPendingGroups.map((group) => {
             return (
-                <div key={group.group_id} className={"pendingGroupItem"}>
+                <div key={group._id} className={"pendingGroupItem"}>
                     <div className="container">
                         <div className="row">
                             <div className="col">
@@ -67,7 +64,7 @@ const MyGroups = ({ myGroups, myPendingGroups, acceptGroup, leaveGroup }) => {
                                 <span
                                     className="acceptInvite"
                                     onClick={() => {
-                                        acceptGroup(group.group_id);
+                                        acceptGroup(group._id);
                                     }}
                                 >
                                     Accept
