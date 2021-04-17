@@ -12,7 +12,7 @@ router.post("/", (req, res) => {
         [
             {
                 $match: {
-                    _id: new mongoose.Types.ObjectId(group_id),
+                    _id: new mongoose.Types.ObjectId(req.body.group_id),
                     "members.invitation_accepted": true,
                 },
             },
@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
                 let err = {};
                 err.status = STATUS_CODE.INTERNAL_SERVER_ERROR;
                 err.data = MESSAGES.INTERNAL_SERVER_ERROR;
-                return callback(err, null);
+                return res.status(err.status).send(err.data);
             } else {
                 if (result) {
                     console.log("All users details ", result);
@@ -48,34 +48,11 @@ router.post("/", (req, res) => {
                     let err = {};
                     err.status = STATUS_CODE.NOT_SUCCESS;
                     err.data = MESSAGES.USER_NOT_EXIST;
-                    return callback(err, null);
+                    return res.status(err.status).send(err.data);
                 }
             }
         }
     );
-
-    // pool.query(
-    //     "SELECT user_id FROM splitwise.groups WHERE group_id = ? AND invitation_accepted = ?",
-    //     [group_id, 1],
-    //     (err, result) => {
-    //         if (err) {
-    //             console.log("Error: ", err);
-    //             res.writeHead(500, {
-    //                 "Content-Type": "text/plain",
-    //             });
-    //             res.send("Database Error");
-
-    //             // res.send({ err: err });
-    //         }
-    //         if (result.length === 0) {
-    //             console.log("No users found");
-    //         }
-    //         if (result.length > 0) {
-    //             // console.log(result);
-    //             res.status(200).send(JSON.stringify(result));
-    //         }
-    //     }
-    // );
 });
 
 module.exports = router;

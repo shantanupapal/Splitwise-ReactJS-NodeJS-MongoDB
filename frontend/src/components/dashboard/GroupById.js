@@ -75,37 +75,38 @@ class GroupById extends Component {
             group_id: id,
         })
             .then((response) => {
-                console.log("resopnse: ", response.data);
+                console.log("resopnse: ", response.data[0]);
                 const members = [];
-                response.data.forEach((member) => {
-                    members.push(member.user_id);
+                response.data[0].members.forEach((member) => {
+                    members.push(member._id);
                 });
                 this.setState({
                     members: members,
                 });
             })
             .then(() => {
-                Axios.post(`${backServer}/getgroupexpenses`, {
-                    group_id: id,
-                })
-                    .then((response) => {
-                        console.log("alll expenses: ", response.data);
-                        const all_expenses = [];
-                        response.data.forEach((expense) => {
-                            all_expenses.push([
-                                expense.fullDate,
-                                expense.description,
-                                expense.name,
-                                expense.total_amount,
-                            ]);
-                        });
-                        this.setState({
-                            all_expenses: all_expenses,
-                        });
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+                // console.log("State: ", this.state);
+                // Axios.post(`${backServer}/getgroupexpenses`, {
+                //     group_id: id,
+                // })
+                //     .then((response) => {
+                //         console.log("alll expenses: ", response.data);
+                //         const all_expenses = [];
+                //         response.data.forEach((expense) => {
+                //             all_expenses.push([
+                //                 expense.fullDate,
+                //                 expense.description,
+                //                 expense.name,
+                //                 expense.total_amount,
+                //             ]);
+                //         });
+                //         this.setState({
+                //             all_expenses: all_expenses,
+                //         });
+                //     })
+                //     .catch((error) => {
+                //         console.log(error);
+                //     });
             })
             .catch((err) => {
                 console.log("Error: ", err);
