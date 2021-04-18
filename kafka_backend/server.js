@@ -20,6 +20,7 @@ const updateProfileService = require("./services/updateprofile");
 const newgroup = require("./services/newgroup");
 const usergroups = require("./services/usergroups");
 const acceptgroupinvite = require("./services/acceptgroupinvite");
+const addexpense = require("./services/addexpense");
 
 //MongoDB connection
 connectMongoDB();
@@ -68,6 +69,7 @@ handleTopicRequest("updateprofile", updateProfileService);
 handleTopicRequest("newgroup", newgroup);
 handleTopicRequest("usergroups", usergroups);
 handleTopicRequest("acceptgroupinvite", acceptgroupinvite);
+handleTopicRequest("addexpense", addexpense);
 // handleTopicRequest("usergroups", usergroups);
 // handleTopicRequest("profile", profileService);
 // handleTopicRequest("follow", followService);

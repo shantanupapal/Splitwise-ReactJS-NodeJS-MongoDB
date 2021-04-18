@@ -41,15 +41,20 @@ class GroupById extends Component {
         //call expenses table to add expense
         const group_id = this.state.id;
         const description = this.state.expense_description;
-        const total_amount = this.state.expense_amount;
-        const paid_by = parseInt(localStorage.getItem("user_id"));
+        const amount = this.state.expense_amount;
+        const payer = localStorage.getItem("user_id");
         const liables = this.state.members;
+        console.log("description: ", description);
+        console.log("Group_id: ", group_id);
+        console.log("amount: ", amount);
+        console.log("payer: ", payer);
+        console.log("liables: ", liables);
 
         Axios.post(`${backServer}/addexpense`, {
             group_id: group_id,
             description: description,
-            total_amount: total_amount,
-            paid_by: paid_by,
+            amount: amount,
+            payer: payer,
             liables: liables,
         })
             .then((response) => {
@@ -85,7 +90,7 @@ class GroupById extends Component {
                 });
             })
             .then(() => {
-                // console.log("State: ", this.state);
+                console.log("State: ", this.state);
                 // Axios.post(`${backServer}/getgroupexpenses`, {
                 //     group_id: id,
                 // })
