@@ -21,6 +21,7 @@ const newgroup = require("./services/newgroup");
 const usergroups = require("./services/usergroups");
 const acceptgroupinvite = require("./services/acceptgroupinvite");
 const addexpense = require("./services/addexpense");
+const dashboarddetails = require("./services/dashboarddetails");
 
 //MongoDB connection
 connectMongoDB();
@@ -70,7 +71,7 @@ handleTopicRequest("newgroup", newgroup);
 handleTopicRequest("usergroups", usergroups);
 handleTopicRequest("acceptgroupinvite", acceptgroupinvite);
 handleTopicRequest("addexpense", addexpense);
-// handleTopicRequest("usergroups", usergroups);
+handleTopicRequest("dashboarddetails", dashboarddetails);
 // handleTopicRequest("profile", profileService);
 // handleTopicRequest("follow", followService);
 // handleTopicRequest("tweets", tweetService);

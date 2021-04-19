@@ -44,6 +44,10 @@ let handle_request = async (message, callback) => {
     //     );
     // });
 
+    /**
+     * Case 1 : If direct entry found
+     */
+
     liables.forEach((liable) => {
         one_to_one.findOne(
             { $and: [{ user_1: message.payer }, { user_2: liable }] },
@@ -51,9 +55,9 @@ let handle_request = async (message, callback) => {
                 if (err) {
                     console.log("Error : ", err);
                 } else {
-                    if (result) {
+                    if (result !== null) {
                         // if entry found
-                        console.log("Result: ", result);
+                        console.log("Case1, True -> Result:  ", result);
 
                         (result.user_1 = message.payer),
                             (result.user_2 = liable),
@@ -61,7 +65,7 @@ let handle_request = async (message, callback) => {
                             result.save().then(
                                 (doc) => {
                                     console.log(
-                                        "Expense updated successfully.",
+                                        "Case 1 : Expense updated successfully.",
                                         doc
                                     );
                                     // response.status = STATUS_CODE.SUCCESS;
@@ -78,26 +82,81 @@ let handle_request = async (message, callback) => {
                                 }
                             );
                     } else {
-                        console.log("NULL");
-                        const entry = new one_to_one({
-                            user_1: message.payer,
-                            user_2: liable,
-                            amount: share,
-                        });
-
-                        entry.save().then(
-                            (doc) => {
-                                console.log("Expense added successfully.", doc);
-                                // response.status = STATUS_CODE.SUCCESS;
-                                // response.data = MESSAGES.SUCCESS;
-                                // return callback(null, response);
-                                // return callback(null, doc);
+                        one_to_one.findOne(
+                            {
+                                $and: [
+                                    { user_1: liable },
+                                    { user_2: message.payer },
+                                ],
                             },
-                            (err) => {
-                                console.log("Unable to add expense", err);
-                                err.status = STATUS_CODE.INTERNAL_SERVER_ERROR;
-                                err.data = MESSAGES.INTERNAL_SERVER_ERROR;
-                                // return callback(err, null);
+                            (err, result) => {
+                                if (err) {
+                                    console.log("Error : ", err);
+                                } else if (result !== null) {
+                                    // if entry found
+                                    console.log(
+                                        "Case 2 : True -> Result: ",
+                                        result
+                                    );
+
+                                    (result.user_1 = liable),
+                                        (result.user_2 = message.payer),
+                                        (result.amount = result.amount - share),
+                                        result.save().then(
+                                            (doc) => {
+                                                console.log(
+                                                    "Case 2 : Expense updated successfully.",
+                                                    doc
+                                                );
+                                                // response.status = STATUS_CODE.SUCCESS;
+                                                // response.data = MESSAGES.SUCCESS;
+                                                // return callback(null, response);
+                                                // return callback(null, doc);
+                                            },
+                                            (err) => {
+                                                console.log(
+                                                    "Unable to add expense",
+                                                    err
+                                                );
+                                                err.status =
+                                                    STATUS_CODE.INTERNAL_SERVER_ERROR;
+                                                err.data =
+                                                    MESSAGES.INTERNAL_SERVER_ERROR;
+                                                // return callback(err, null);
+                                            }
+                                        );
+                                } else {
+                                    console.log("Case 3 : NULL");
+                                    const entry = new one_to_one({
+                                        user_1: message.payer,
+                                        user_2: liable,
+                                        amount: share,
+                                    });
+
+                                    entry.save().then(
+                                        (doc) => {
+                                            console.log(
+                                                "Case 3 : Entry made and expense added successfully.",
+                                                doc
+                                            );
+                                            // response.status = STATUS_CODE.SUCCESS;
+                                            // response.data = MESSAGES.SUCCESS;
+                                            // return callback(null, response);
+                                            // return callback(null, doc);
+                                        },
+                                        (err) => {
+                                            console.log(
+                                                "Unable to add expense",
+                                                err
+                                            );
+                                            err.status =
+                                                STATUS_CODE.INTERNAL_SERVER_ERROR;
+                                            err.data =
+                                                MESSAGES.INTERNAL_SERVER_ERROR;
+                                            // return callback(err, null);
+                                        }
+                                    );
+                                }
                             }
                         );
                     }

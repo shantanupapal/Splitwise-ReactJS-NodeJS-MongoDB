@@ -25,9 +25,9 @@ router.post("/", (req, res) => {
             console.log("User saved successfully.");
 
             // Create token if the password matched and no error was thrown
-            var token = jwt.sign(result, secret, {
-                expiresIn: 10080, // in seconds
-            });
+            // var token = jwt.sign(result, secret, {
+            //     expiresIn: 10080, // in seconds
+            // });
 
             let userDetails = {
                 user_id: result.data,

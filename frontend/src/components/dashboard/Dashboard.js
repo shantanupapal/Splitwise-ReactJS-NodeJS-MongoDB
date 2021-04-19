@@ -9,79 +9,79 @@ class Dashboard extends Component {
         i_owe: [],
         they_owe: [],
     };
-    // componentDidMount = () => {
-    //     localStorage.setItem("i_owe", JSON.stringify(0));
-    //     localStorage.setItem("they_owe", JSON.stringify(0));
-    //     const user_id = parseInt(localStorage.getItem("user_id"));
-    //     // console.log("Hello");
-    //     Axios.post(`${backServer}/dashboarddetails `, { user_id: user_id })
-    //         .then((response) => {
-    //             console.log("got response 200", response.data.i_owe);
-    //             console.log("got response 200", response.data.they_owe);
-    //             this.setState({
-    //                 i_owe: response.data.i_owe,
-    //                 they_owe: response.data.they_owe,
-    //             });
-    //             localStorage.setItem(
-    //                 "i_owe",
-    //                 JSON.stringify(response.data.i_owe)
-    //             );
-    //             localStorage.setItem(
-    //                 "they_owe",
-    //                 JSON.stringify(response.data.they_owe)
-    //             );
-    //             // if (response.status === 201) {
-    //             //     console.log("got response 201", response.data.they_owe);
-    //             //     this.setState({
-    //             //         they_owe: response.data.they_owe,
-    //             //     });
+    componentDidMount = () => {
+        localStorage.setItem("i_owe", JSON.stringify(0));
+        localStorage.setItem("they_owe", JSON.stringify(0));
+        const user_id = localStorage.getItem("user_id");
+        console.log("userdid: ", user_id);
+        Axios.post(`${backServer}/dashboarddetails`, { user_id: user_id })
+            .then((response) => {
+                console.log("got response 200", response.data.i_owe);
+                console.log("got response 200", response.data.they_owe);
+                this.setState({
+                    i_owe: response.data.i_owe,
+                    they_owe: response.data.they_owe,
+                });
+                localStorage.setItem(
+                    "i_owe",
+                    JSON.stringify(response.data.i_owe)
+                );
+                localStorage.setItem(
+                    "they_owe",
+                    JSON.stringify(response.data.they_owe)
+                );
+                // if (response.status === 201) {
+                //     console.log("got response 201", response.data.they_owe);
+                //     this.setState({
+                //         they_owe: response.data.they_owe,
+                //     });
 
-    //             //     localStorage.setItem(
-    //             //         "they_owe",
-    //             //         JSON.stringify(response.data.they_owe)
-    //             //     );
-    //             //     localStorage.setItem(
-    //             //         "i_owe",
-    //             //         JSON.stringify(response.data.i_owe)
-    //             //     );
-    //             // } else if (response.status === 202) {
-    //             //     console.log("got response 202 ", response.data.i_owe);
-    //             //     this.setState({
-    //             //         i_owe: response.data.i_owe,
-    //             //     });
+                //     localStorage.setItem(
+                //         "they_owe",
+                //         JSON.stringify(response.data.they_owe)
+                //     );
+                //     localStorage.setItem(
+                //         "i_owe",
+                //         JSON.stringify(response.data.i_owe)
+                //     );
+                // } else if (response.status === 202) {
+                //     console.log("got response 202 ", response.data.i_owe);
+                //     this.setState({
+                //         i_owe: response.data.i_owe,
+                //     });
 
-    //             //     localStorage.setItem(
-    //             //         "i_owe",
-    //             //         JSON.stringify(response.data.i_owe)
-    //             //     );
-    //             //     localStorage.setItem(
-    //             //         "they_owe",
-    //             //         JSON.stringify(response.data.they_owe)
-    //             //     );
-    //             // } else if (response.status === 200) {
-    //             //     console.log("got response 200", response.data.i_owe);
-    //             //     console.log("got response 200", response.data.they_owe);
-    //             //     this.setState({
-    //             //         i_owe: response.data.i_owe,
-    //             //         they_owe: response.data.they_owe,
-    //             //     });
-    //             //     localStorage.setItem(
-    //             //         "i_owe",
-    //             //         JSON.stringify(response.data.i_owe)
-    //             //     );
-    //             //     localStorage.setItem(
-    //             //         "they_owe",
-    //             //         JSON.stringify(response.data.they_owe)
-    //             //     );
-    //             // } else {
-    //             //     localStorage.setItem("i_owe", JSON.stringify(0));
-    //             //     localStorage.setItem("they_owe", JSON.stringify(0));
-    //             // }
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });
-    // };
+                //     localStorage.setItem(
+                //         "i_owe",
+                //         JSON.stringify(response.data.i_owe)
+                //     );
+                //     localStorage.setItem(
+                //         "they_owe",
+                //         JSON.stringify(response.data.they_owe)
+                //     );
+                // } else if (response.status === 200) {
+                //     console.log("got response 200", response.data.i_owe);
+                //     console.log("got response 200", response.data.they_owe);
+                //     this.setState({
+                //         i_owe: response.data.i_owe,
+                //         they_owe: response.data.they_owe,
+                //     });
+                //     localStorage.setItem(
+                //         "i_owe",
+                //         JSON.stringify(response.data.i_owe)
+                //     );
+                //     localStorage.setItem(
+                //         "they_owe",
+                //         JSON.stringify(response.data.they_owe)
+                //     );
+                // } else {
+                //     localStorage.setItem("i_owe", JSON.stringify(0));
+                //     localStorage.setItem("they_owe", JSON.stringify(0));
+                // }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     handleSettle = () => {
         const i_owe = JSON.parse(localStorage.getItem("i_owe"));
@@ -116,46 +116,48 @@ class Dashboard extends Component {
     };
 
     render() {
+        const currency_ls = localStorage.getItem("currency");
+        const currency = currency_ls.split(" ")[0];
         const i_owe_all = this.state.i_owe;
         const they_owe_all = this.state.they_owe;
-        const they_owe_names = [];
-        const i_owe_names = [];
-        const they_owe = [];
-        const i_owe = [];
-        they_owe_all.forEach((they) => {
-            // console.log(they[2]);
-            if (they_owe_names.includes(they[2])) {
-                // console.log("yes");
-                // console.log(they_owe.indexOf(they));
-                they_owe.splice(they_owe.indexOf(they) + 1, 1, they);
-            } else {
-                they_owe_names.push(they[2]);
-                they_owe.push(they);
-                // console.log("they owe names: ", they_owe);
-                // console.log("not");
-            }
-        });
+        // const they_owe_names = [];
+        // const i_owe_names = [];
+        // const they_owe = [];
+        // const i_owe = [];
+        // they_owe_all.forEach((they) => {
+        //     // console.log(they[2]);
+        //     if (they_owe_names.includes(they[2])) {
+        //         // console.log("yes");
+        //         // console.log(they_owe.indexOf(they));
+        //         they_owe.splice(they_owe.indexOf(they) + 1, 1, they);
+        //     } else {
+        //         they_owe_names.push(they[2]);
+        //         they_owe.push(they);
+        //         // console.log("they owe names: ", they_owe);
+        //         // console.log("not");
+        //     }
+        // });
 
-        i_owe_all.forEach((they) => {
-            // console.log(they[2]);
-            if (i_owe_names.includes(they[2])) {
-                // console.log("yes");
-                // console.log(they_owe.indexOf(they));
-                i_owe.splice(i_owe.indexOf(they) + 1, 1, they);
-            } else {
-                i_owe_names.push(they[2]);
-                i_owe.push(they);
-                // console.log("they owe names: ", i_owe);
-                // console.log("not");
-            }
-        });
+        // i_owe_all.forEach((they) => {
+        //     // console.log(they[2]);
+        //     if (i_owe_names.includes(they[2])) {
+        //         // console.log("yes");
+        //         // console.log(they_owe.indexOf(they));
+        //         i_owe.splice(i_owe.indexOf(they) + 1, 1, they);
+        //     } else {
+        //         i_owe_names.push(they[2]);
+        //         i_owe.push(they);
+        //         // console.log("they owe names: ", i_owe);
+        //         // console.log("not");
+        //     }
+        // });
 
         let i_owe_total = 0;
         let they_owe_total = 0;
-        console.log(i_owe);
-        console.log(they_owe);
-        const show_i_owe = i_owe.length ? (
-            i_owe.map((ower) => {
+        console.log(i_owe_all);
+        console.log(they_owe_all);
+        const show_i_owe = i_owe_all.length ? (
+            i_owe_all.map((ower) => {
                 console.log(ower[0]);
 
                 return (
@@ -197,7 +199,7 @@ class Dashboard extends Component {
                                 fontWeight: "bold",
                             }}
                         >
-                            {Math.abs(ower[1]).toFixed(2)}
+                            {currency} {Math.abs(ower[1]).toFixed(2)}
                         </span>
                     </div>
                 );
@@ -214,8 +216,8 @@ class Dashboard extends Component {
             </div>
         );
 
-        const show_they_owe = they_owe.length ? (
-            they_owe.map((ower) => {
+        const show_they_owe = they_owe_all.length ? (
+            they_owe_all.map((ower) => {
                 // console.log(ower[0]);
                 // if (ower[2] !== "Logan Griffo" || ower[1] === 6.25) {
                 return (
@@ -257,7 +259,7 @@ class Dashboard extends Component {
                                 fontWeight: "bold",
                             }}
                         >
-                            {Math.abs(ower[1]).toFixed(2)}
+                            {currency} {Math.abs(ower[1]).toFixed(2)}
                         </span>
                     </div>
                 );
@@ -276,10 +278,10 @@ class Dashboard extends Component {
             </div>
         );
 
-        i_owe.forEach((ower) => {
+        i_owe_all.forEach((ower) => {
             i_owe_total = i_owe_total + ower[1];
         });
-        they_owe.forEach((ower) => {
+        they_owe_all.forEach((ower) => {
             they_owe_total = they_owe_total + ower[1];
         });
 
@@ -313,7 +315,9 @@ class Dashboard extends Component {
                         >
                             {" "}
                             you owe <br />
-                            <div>{Math.abs(i_owe_total).toFixed(2)}</div>
+                            <div>
+                                {currency} {Math.abs(i_owe_total).toFixed(2)}
+                            </div>
                         </div>
 
                         <div
@@ -325,7 +329,9 @@ class Dashboard extends Component {
                         >
                             {" "}
                             you are owed{" "}
-                            <div>{Math.abs(they_owe_total).toFixed(2)}</div>
+                            <div>
+                                {currency} {Math.abs(they_owe_total).toFixed(2)}
+                            </div>
                         </div>
                     </div>
                 </div>

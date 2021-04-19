@@ -1,13 +1,29 @@
 "use strict";
-const Expense = require("../models/expenses");
+const one_to_one = require("../models/one_to_one");
 const { STATUS_CODE, MESSAGES } = require("../utils/constants");
+const mongoose = require("mongoose");
 
 let handle_request = async (message, callback) => {
-    console.log("Inside Get User Groups");
-    console.log("For User: ", message);
-    Expense.find(
-        { "members._id": message.user_id },
-        { groupname: 1, "members.invitation_accepted.$": 1 },
+    console.log("Inside Kafka : DashboardDetails");
+    console.log("For User: ", message.user_id);
+    one_to_one.find(
+        {
+            $or: [
+                // {
+                //     user_1: new mongoose.Types.ObjectId(
+                //         "606de88a94d62009943233"
+                //     ),
+                // },
+                // {
+                //     user_1: new mongoose.Types.ObjectId(
+                //         "606de88a94d62009943233"
+                //     ),
+                // },
+                { user_1: new mongoose.Types.ObjectId(message.user_id) },
+                { user_2: new mongoose.Types.ObjectId(message.user_id) },
+            ],
+        },
+        { user_1: 1, user_2: 1, amount: 1 },
         (err, result) => {
             if (err) {
                 console.log("Unable to fetch user details.", err);
