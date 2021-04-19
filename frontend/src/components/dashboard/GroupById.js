@@ -91,27 +91,27 @@ class GroupById extends Component {
             })
             .then(() => {
                 console.log("State: ", this.state);
-                // Axios.post(`${backServer}/getgroupexpenses`, {
-                //     group_id: id,
-                // })
-                //     .then((response) => {
-                //         console.log("alll expenses: ", response.data);
-                //         const all_expenses = [];
-                //         response.data.forEach((expense) => {
-                //             all_expenses.push([
-                //                 expense.fullDate,
-                //                 expense.description,
-                //                 expense.name,
-                //                 expense.total_amount,
-                //             ]);
-                //         });
-                //         this.setState({
-                //             all_expenses: all_expenses,
-                //         });
-                //     })
-                //     .catch((error) => {
-                //         console.log(error);
-                //     });
+                Axios.post(`${backServer}/getgroupexpenses`, {
+                    group_id: id,
+                })
+                    .then((response) => {
+                        console.log("alll expenses: ", response.data);
+                        const all_expenses = response.data;
+                        // response.data.forEach((expense) => {
+                        //     all_expenses.push([
+                        //         expense.fullDate,
+                        //         expense.description,
+                        //         expense.name,
+                        //         expense.total_amount,
+                        //     ]);
+                        // });
+                        this.setState({
+                            all_expenses: all_expenses,
+                        });
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
             })
             .catch((err) => {
                 console.log("Error: ", err);
@@ -156,7 +156,9 @@ class GroupById extends Component {
                                 {expense[1]}
                             </div>
                             <div className="col-sm-4">
-                                <span style={{ color: "#aaa" }}>
+                                <span
+                                    style={{ color: "#aaa", fontSize: "17px" }}
+                                >
                                     {expense[2]} paid{" "}
                                 </span>
                                 <span
