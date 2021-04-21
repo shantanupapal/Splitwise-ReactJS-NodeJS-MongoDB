@@ -146,3 +146,28 @@ let handle_request = async (message, callback) => {
 };
 
 exports.handle_request = handle_request;
+
+
+// get all group members 
+Group.aggregate(
+    [
+        {
+            $match: {
+                _id: new mongoose.Types.ObjectId(req.body.group_id),
+                "members.invitation_accepted": true,
+            },
+        },
+        {
+            $project: {
+                members: {
+                    $filter: {
+                        input: "$members",
+                        as: "member",
+                        cond: {
+                            $eq: ["$$member.invitation_accepted", true],
+                        },
+                    },
+                },
+            },
+        },
+    ],

@@ -328,3 +328,9 @@
 ::placeholder {
     color: #ccc;
 }
+
+/*-------------Comments --------*/
+.comment:hover {
+    cursor: pointer;
+    color: red;
+}

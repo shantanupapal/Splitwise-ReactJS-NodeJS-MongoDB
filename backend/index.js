@@ -20,6 +20,8 @@ const getgroupexpenses = require("./routes/getgroupexpenses");
 // const leavegroup = require("./routes/leavegroup");
 // const recentactivity = require("./routes/recentactivity");
 const getuserphoto = require("./routes/getuserphoto");
+const addcomment = require("./routes/addcomment");
+const deletecomment = require("./routes/deletecomment");
 
 app.use("/login", login);
 app.use("/signup", signup);
@@ -36,6 +38,8 @@ app.use("/getallgroupmembers", getallgroupmembers);
 app.use("/addexpense", addexpense);
 app.use("/dashboarddetails", dashboarddetails);
 app.use("/getgroupexpenses", getgroupexpenses);
+app.use("/addcomment", addcomment);
+app.use("/deletecomment", deletecomment);
 // app.use("/getgroupbalancedetails", getgroupbalancedetails);
 // app.use("/settleup", settleup);
 // app.use("/leavegroup", leavegroup);

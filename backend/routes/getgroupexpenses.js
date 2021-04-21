@@ -38,7 +38,7 @@ router.post("/", (req, res) => {
             return res.status(err.status).send(err.data);
         } else if (result) {
             const expenses = [];
-            // console.log("Group Expenses fetch successful: ", result);
+            console.log("Group Expenses fetch successful: ", result);
             result.forEach((expense) => {
                 const date = getDateFormat(expense.createdAt);
                 expenses.push([
@@ -46,6 +46,8 @@ router.post("/", (req, res) => {
                     expense.description,
                     expense.payers[0].name,
                     expense.amount,
+                    expense._id,
+                    expense.comments,
                 ]);
                 // console.log("Payers: ", payer.payers[0]);
             });

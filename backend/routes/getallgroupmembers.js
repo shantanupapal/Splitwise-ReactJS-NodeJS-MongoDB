@@ -17,6 +17,14 @@ router.post("/", (req, res) => {
                 },
             },
             {
+                $lookup: {
+                    from: "users",
+                    localField: "members._id",
+                    foreignField: "_id",
+                    as: "names",
+                },
+            },
+            {
                 $project: {
                     members: {
                         $filter: {
@@ -27,6 +35,8 @@ router.post("/", (req, res) => {
                             },
                         },
                     },
+                    "names._id": 1,
+                    "names.name": 1,
                 },
             },
         ],

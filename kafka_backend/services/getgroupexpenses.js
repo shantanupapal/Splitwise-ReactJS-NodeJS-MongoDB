@@ -29,6 +29,7 @@ let handle_request = async (message, callback) => {
                     description: 1,
                     amount: 1,
                     "payers.name": 1,
+                    comments: 1,
                 },
             },
         ],
