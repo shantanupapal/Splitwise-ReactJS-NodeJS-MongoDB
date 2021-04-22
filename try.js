@@ -171,3 +171,7 @@ Group.aggregate(
             },
         },
     ],
+
+
+    db.getCollection('expenses').aggregate([{$match : {$or : [{_id : ObjectId("606dc54894d6200994323365")},{"liables._id": ObjectId("606dc54894d6200994323365")}]}},
+{$sort : {createdAt:-1}}])

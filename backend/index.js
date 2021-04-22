@@ -18,7 +18,7 @@ const getgroupexpenses = require("./routes/getgroupexpenses");
 // const getgroupbalancedetails = require("./routes/getgroupbalancedetails");
 // const settleup = require("./routes/settleup");
 // const leavegroup = require("./routes/leavegroup");
-// const recentactivity = require("./routes/recentactivity");
+const recentactivity = require("./routes/recentactivity");
 const getuserphoto = require("./routes/getuserphoto");
 const addcomment = require("./routes/addcomment");
 const deletecomment = require("./routes/deletecomment");
@@ -43,7 +43,7 @@ app.use("/deletecomment", deletecomment);
 // app.use("/getgroupbalancedetails", getgroupbalancedetails);
 // app.use("/settleup", settleup);
 // app.use("/leavegroup", leavegroup);
-// app.use("/recentactivity", recentactivity);
+app.use("/recentactivity", recentactivity);
 app.use("/images", getuserphoto);
 
 app.listen(3001, () => {
