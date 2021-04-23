@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
-// const pool = require("../pool");
-// const Group = require("../models/groups");
 const { STATUS_CODE, MESSAGES } = require("../utils/constants");
 const kafka = require("../kafka/client");
+const { checkAuth } = require("../utils/passport");
 
-router.post("/", (req, res) => {
+router.post("/", checkAuth, (req, res) => {
     console.log("Inside Get User Groups");
     console.log("For User: ", req.body);
 

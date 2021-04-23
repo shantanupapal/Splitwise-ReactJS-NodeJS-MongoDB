@@ -12,6 +12,10 @@ class RightSideBar extends Component {
         const payers_balances = [];
         const borrowers_balances = [];
         // console.log(group_id);
+        Axios.defaults.headers.common["authorization"] = localStorage.getItem(
+            "token"
+        );
+
         Axios.post(`${backServer}/getgroupbalancedetails`, {
             group_id: group_id,
         })

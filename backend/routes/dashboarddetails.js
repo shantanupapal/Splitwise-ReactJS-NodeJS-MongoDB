@@ -4,8 +4,9 @@ const { STATUS_CODE, MESSAGES } = require("../utils/constants");
 const kafka = require("../kafka/client");
 const mongoose = require("mongoose");
 const User = require("../models/users");
+const { checkAuth } = require("../utils/passport");
 //AddExpense
-router.post("/", (req, res) => {
+router.post("/", checkAuth, (req, res) => {
     console.log("Inside Dashboard Details GET");
     console.log("For user: ", req.body);
     const user = req.body.user_id;

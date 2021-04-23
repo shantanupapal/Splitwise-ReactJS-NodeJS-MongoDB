@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logIn } from "../../store/actions/loginActions";
 import { Redirect } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 class Login extends Component {
     state = {
@@ -27,15 +28,19 @@ class Login extends Component {
         const { loggedIn } = this.props;
         const { user } = this.props;
 
-        if (loggedIn) {
-            localStorage.setItem("user_id", user.user_id);
-            localStorage.setItem("name", user.name);
-            localStorage.setItem("email", user.email);
-            localStorage.setItem("phone", user.phone);
-            localStorage.setItem("currency", user.currency);
-            localStorage.setItem("language", user.language);
-            localStorage.setItem("timezone", user.timezone);
-            localStorage.setItem("profilephoto", user.profilephoto);
+        if (loggedIn && user.length > 0) {
+            console.log("token ", user);
+            localStorage.setItem("token", user);
+
+            const decode = jwt_decode(user.split(" ")[1]);
+            localStorage.setItem("user_id", decode.user_id);
+            localStorage.setItem("name", decode.name);
+            localStorage.setItem("email", decode.email);
+            localStorage.setItem("phone", decode.phone);
+            localStorage.setItem("currency", decode.currency);
+            localStorage.setItem("language", decode.language);
+            localStorage.setItem("timezone", decode.timezone);
+            localStorage.setItem("profilephoto", decode.profilephoto);
             return <Redirect to="/Center" />;
         }
         return (

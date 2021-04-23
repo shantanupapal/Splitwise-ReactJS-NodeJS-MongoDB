@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const { STATUS_CODE, MESSAGES } = require("../utils/constants");
 const kafka = require("../kafka/client");
+const { checkAuth } = require("../utils/passport");
 
 //NewGroup
-router.post("/", (req, res) => {
+router.post("/", checkAuth, (req, res) => {
     console.log("Inside NewGroup POST");
     console.log("Request Body: ", req.body);
 

@@ -177,6 +177,10 @@
     width: 20px;
     height: 20px;
 }
+.groupsItems img {
+    width: 20px;
+    height: 20px;
+}
 
 .groupHeader {
     position: relative;

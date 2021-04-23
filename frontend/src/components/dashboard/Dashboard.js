@@ -14,6 +14,9 @@ class Dashboard extends Component {
         localStorage.setItem("they_owe", JSON.stringify(0));
         const user_id = localStorage.getItem("user_id");
         console.log("userdid: ", user_id);
+        Axios.defaults.headers.common["authorization"] = localStorage.getItem(
+            "token"
+        );
         Axios.post(`${backServer}/dashboarddetails`, { user_id: user_id })
             .then((response) => {
                 console.log("got response 200", response.data.i_owe);
@@ -99,6 +102,10 @@ class Dashboard extends Component {
             console.log("owers", owers);
             const user_id = parseInt(localStorage.getItem("user_id"));
             console.log("user to settle: ", user_id);
+            Axios.defaults.headers.common[
+                "authorization"
+            ] = localStorage.getItem("token");
+
             Axios.post(`${backServer}/settleup`, {
                 user_id: user_id,
                 owers: owers,

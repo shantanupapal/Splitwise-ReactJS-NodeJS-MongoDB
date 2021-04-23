@@ -6,9 +6,6 @@ export const Pagination = ({
     paginate,
     changeActivitiesPerPage,
 }) => {
-    // handleChange = (e) => {
-    //     changeActivitiesPerPage(e.target.value);
-    // };
     const pageNumbers = [];
 
     for (let i = 1; i <= Math.ceil(totalActivities / activitiesPerPage); i++) {
@@ -16,34 +13,26 @@ export const Pagination = ({
     }
     return (
         <div
+            className="flex-container"
             style={{
                 zIndex: "1000000",
                 marginTop: "10px",
                 display: "flex",
+                flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
             }}
         >
-            <div style={{ marginRight: "50px" }}>
-                <label for="items">Per Page:</label>
-                <select
-                    id="items"
-                    style={{ margin: "5px", marginBottom: "20px" }}
-                    onChange={(e) => {
-                        changeActivitiesPerPage(e.target.value);
-                    }}
-                >
-                    <option value="2">2</option>
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                </select>
-            </div>
-
-            <div className="pagination-bar">
-                <ul className="pagination" style={{}}>
+            <div className="">
+                <ul className="pagination">
                     {pageNumbers.map((number) => (
                         <li key={number} className="page-item">
                             <span
+                                style={{
+                                    background: "#1cc29f",
+                                    color: "white",
+                                    fontWeight: "bold",
+                                }}
                                 onClick={() => {
                                     paginate(number);
                                 }}
@@ -54,6 +43,32 @@ export const Pagination = ({
                         </li>
                     ))}
                 </ul>
+            </div>
+            <div
+                style={{
+                    float: "left",
+                    border: "1px solid #eee",
+                    borderRadius: "5px",
+                    padding: "10px",
+                    background: "#ddd",
+                    fontSize: "20px",
+                }}
+            >
+                <label for="items">Per Page:</label>
+                <select
+                    id="items"
+                    style={{
+                        margin: "5px",
+                        fontSize: "15px",
+                    }}
+                    onChange={(e) => {
+                        changeActivitiesPerPage(e.target.value);
+                    }}
+                >
+                    <option value="2">2</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                </select>
             </div>
         </div>
     );

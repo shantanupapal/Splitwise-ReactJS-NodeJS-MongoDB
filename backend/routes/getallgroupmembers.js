@@ -3,8 +3,9 @@ const router = express.Router();
 const Group = require("../models/groups");
 const { STATUS_CODE, MESSAGES } = require("../utils/constants");
 const mongoose = require("mongoose");
+const { checkAuth } = require("../utils/passport");
 
-router.post("/", (req, res) => {
+router.post("/", checkAuth, (req, res) => {
     const group_id = req.body.group_id;
     console.log("Group_id: ", group_id);
 

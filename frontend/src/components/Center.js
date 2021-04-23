@@ -12,6 +12,10 @@ class Center extends Component {
         // const { loggedIn } = this.props;
         const name = localStorage.getItem("name");
         if (localStorage.getItem("user_id") === "undefined") {
+            Axios.defaults.headers.common[
+                "authorization"
+            ] = localStorage.getItem("token");
+
             Axios.post(`${backServer}/senduserid`, { name: name })
                 .then((response) => {
                     console.log("USED- ID: ", response.data);
@@ -37,7 +41,7 @@ class Center extends Component {
                             <LeftSideBar />
                         </div>
                         <div
-                            className="col-xl-5"
+                            className="col-xl-6"
                             style={{
                                 boxShadow: "0 0 12px rgb(0 0 0 / 20%)",
                                 height: "100vh",
@@ -45,7 +49,7 @@ class Center extends Component {
                         >
                             <Dashboard />
                         </div>
-                        <div className="col-xl-4"></div>
+                        <div className="col-xl-3"></div>
                     </div>
                 </div>
             </div>

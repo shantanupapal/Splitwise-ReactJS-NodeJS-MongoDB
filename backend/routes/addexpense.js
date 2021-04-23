@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const { STATUS_CODE, MESSAGES } = require("../utils/constants");
 const kafka = require("../kafka/client");
+const { checkAuth } = require("../utils/passport");
 
 //AddExpense
-router.post("/", (req, res) => {
+router.post("/", checkAuth, (req, res) => {
     console.log("Inside Add Expense POST");
     console.log("Expense: ", req.body);
 

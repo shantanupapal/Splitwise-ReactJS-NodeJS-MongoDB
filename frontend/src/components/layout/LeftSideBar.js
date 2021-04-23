@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import smallLogo from "../../images/smallLogo.png";
+import flag from "../../images/flag.png";
+import group from "../../images/group.png";
 
 const LeftSideBar = () => {
     return (
@@ -7,12 +9,12 @@ const LeftSideBar = () => {
             <div className="left">
                 <Link to="/Center">
                     <table className="options">
-                        <thead>
+                        <thead style={{ textAlign: "center" }}>
                             <tr>
-                                <td>
+                                <td style={{ textAlign: "center" }}>
                                     <img src={smallLogo} alt="" />
                                 </td>
-                                <td>
+                                <td style={{ textAlign: "center" }}>
                                     <p>Dashboard</p>
                                 </td>
                             </tr>
@@ -24,10 +26,7 @@ const LeftSideBar = () => {
                         <thead>
                             <tr>
                                 <td>
-                                    <i
-                                        className="fa fa-flag"
-                                        aria-hidden="true"
-                                    ></i>
+                                    <img src={flag} alt="" />
                                 </td>
                                 <td>
                                     <p>Recent Activity</p>
@@ -42,10 +41,7 @@ const LeftSideBar = () => {
                             <thead>
                                 <tr>
                                     <td>
-                                        <i
-                                            class="fas fa-users"
-                                            aria-hidden="true"
-                                        ></i>
+                                        <img src={group} alt="" />
                                     </td>
                                     <td>
                                         <Link

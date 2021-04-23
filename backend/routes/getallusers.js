@@ -3,8 +3,9 @@ const router = express.Router();
 // const pool = require("../pool");
 const User = require("../models/users");
 const { STATUS_CODE, MESSAGES } = require("../utils/constants");
+const { checkAuth } = require("../utils/passport");
 
-router.get("/", (req, res) => {
+router.get("/", checkAuth, (req, res) => {
     User.find({}, { _id: 1, name: 1 }, (err, result) => {
         if (err) {
             console.log("Unable to fetch user details.", err);

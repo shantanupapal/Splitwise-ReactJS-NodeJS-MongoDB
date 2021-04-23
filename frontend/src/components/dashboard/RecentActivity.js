@@ -17,15 +17,19 @@ const RecentActivity = () => {
     const [activities, setActivities] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [activitiesPerPage, setActivitiesPerPage] = useState(10);
-    const currency = localStorage.getItem("currency").split(" ")[0];
+    const [activitiesPerPage, setActivitiesPerPage] = useState(2);
 
     useEffect(() => {
         const fetchActivities = async () => {
             setLoading(true);
-            const res = await Axios.get(
-                "https://jsonplaceholder.typicode.com/posts"
-            );
+            const user_id = localStorage.getItem("user_id");
+            Axios.defaults.headers.common[
+                "authorization"
+            ] = localStorage.getItem("token");
+
+            const res = await Axios.post(`${backServer}/recentactivity`, {
+                user_id: user_id,
+            });
             setActivities(res.data);
             setLoading(false);
         };
@@ -58,14 +62,17 @@ const RecentActivity = () => {
                         <LeftSideBar />
                     </div>
                     <div
-                        className="col-xl-7"
+                        className="col-xl-6"
                         style={{
                             boxShadow: "0 0 12px rgb(0 0 0 / 20%)",
                             height: "100vh",
                             marginTop: "50px",
                         }}
                     >
-                        <div className="container dashboardHeader">
+                        <div
+                            className="container dashboardHeader"
+                            style={{ background: "#aaa" }}
+                        >
                             <div className="row align-items-center">
                                 <div className="col-sm-6">
                                     <h2>Recent Activity</h2>
@@ -86,7 +93,7 @@ const RecentActivity = () => {
                         />
                         {/*activities*/}
                     </div>
-                    {/** */} <div className="col-xl-2"></div>
+                    {/** */} <div className="col-xl-3"></div>
                 </div>
             </div>
         </div>

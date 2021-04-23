@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { STATUS_CODE, MESSAGES } = require("../utils/constants");
 const kafka = require("../kafka/client");
+const { checkAuth } = require("../utils/passport");
 
 getDateFormat = (dateString) => {
     const date = new Date(dateString);
@@ -26,7 +27,7 @@ getDateFormat = (dateString) => {
     return day + " " + month + ", " + year;
 };
 //GetGroupExpense
-router.post("/", (req, res) => {
+router.post("/", checkAuth, (req, res) => {
     console.log("Inside Group Expense GET");
     console.log("For: ", req.body);
 

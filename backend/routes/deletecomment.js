@@ -3,8 +3,9 @@ const router = express.Router();
 const Expense = require("../models/expenses");
 const { STATUS_CODE, MESSAGES } = require("../utils/constants");
 const mongoose = require("mongoose");
+const { checkAuth } = require("../utils/passport");
 
-router.post("/", (req, res) => {
+router.post("/", checkAuth, (req, res) => {
     const expense_id = req.body.expense_id;
     console.log("expense_id: ", req.body.comment_id);
 

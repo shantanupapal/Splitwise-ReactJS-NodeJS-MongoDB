@@ -11,7 +11,7 @@ let handle_request = async (message, callback) => {
             {
                 $match: {
                     $or: [
-                        { _id: mongoose.Types.ObjectId(message.user_id) },
+                        { payer: mongoose.Types.ObjectId(message.user_id) },
                         {
                             "liables._id": mongoose.Types.ObjectId(
                                 message.user_id
@@ -20,7 +20,17 @@ let handle_request = async (message, callback) => {
                     ],
                 },
             },
-            { $sort: { createdAt: -1 } },
+            { $sort: { createdAt: 1 } },
+            {
+                $project: {
+                    amount: 1,
+                    group_id: 1,
+                    description: 1,
+                    payer: 1,
+                    liables: 1,
+                    createdAt: 1,
+                },
+            },
         ],
         (err, result) => {
             if (err) {

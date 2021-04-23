@@ -4,8 +4,9 @@ var passport = require("passport");
 const { STATUS_CODE, MESSAGES } = require("../utils/constants");
 const kafka = require("../kafka/client");
 var requireAuth = passport.authenticate("jwt", { session: false });
+const { checkAuth } = require("../utils/passport");
 
-router.post("/", function (req, res) {
+router.post("/", checkAuth, (req, res) => {
     console.log("Inside Update Profile POST!");
     console.log("Request Body: ", req.body);
 

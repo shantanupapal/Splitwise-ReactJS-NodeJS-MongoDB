@@ -18,6 +18,10 @@ class MyGroupsCenter extends Component {
         //FETCH groups for the user_ID
         const user_id = localStorage.getItem("user_id");
         console.log("user:", user_id);
+        Axios.defaults.headers.common["authorization"] = localStorage.getItem(
+            "token"
+        );
+
         Axios.post(`${backServer}/usergroups`, { user_id: user_id })
             .then((response) => {
                 console.log("All groups:");
@@ -65,6 +69,10 @@ class MyGroupsCenter extends Component {
         } else {
             console.log("here");
             //DELETE from group
+            Axios.defaults.headers.common[
+                "authorization"
+            ] = localStorage.getItem("token");
+
             Axios.post(`${backServer}/leavegroup`, {
                 user_id: user_id,
                 group_id: id,
@@ -87,6 +95,10 @@ class MyGroupsCenter extends Component {
 
         //Accept invitations in backend
         const user_id = localStorage.getItem("user_id");
+        Axios.defaults.headers.common["authorization"] = localStorage.getItem(
+            "token"
+        );
+
         Axios.post(`${backServer}/acceptgroupinvite`, {
             user_id: user_id,
             group_id: id,

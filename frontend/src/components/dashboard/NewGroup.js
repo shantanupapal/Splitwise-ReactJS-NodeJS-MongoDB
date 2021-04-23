@@ -39,6 +39,10 @@ class NewGroup extends Component {
     componentWillMount = () => {
         //FETCH ALL USERNAMES AND STORE IN LOCALSTORAGE
         console.log("DID MOUNT");
+        Axios.defaults.headers.common["authorization"] = localStorage.getItem(
+            "token"
+        );
+
         Axios.get(`${backServer}/getallusers`)
             .then((response) => {
                 console.log(typeof response.data);
@@ -154,6 +158,9 @@ class NewGroup extends Component {
                             ". These users will not be added to the group."
                     );
                 }
+                Axios.defaults.headers.common[
+                    "authorization"
+                ] = localStorage.getItem("token");
 
                 Axios.post(`${backServer}/newgroup`, {
                     members: members_id_to_add,

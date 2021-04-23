@@ -23,6 +23,10 @@ const ProfilePage = () => {
         Axios.defaults.withCredentials = true;
         // console.log(name, email, phone, currency, timezone, language, user_id);
         // console.log("IM in handlesubmit");
+        Axios.defaults.headers.common["authorization"] = localStorage.getItem(
+            "token"
+        );
+
         Axios.post(`${backServer}/updateprofile`, {
             name: name,
             // email: email,
@@ -52,9 +56,17 @@ const ProfilePage = () => {
         console.log("IM in handlesubmitphoto");
         // profilephoto.name = user_id + ".JPG";
         // console.log(profilephoto.name);
+        Axios.defaults.headers.common["authorization"] = localStorage.getItem(
+            "token"
+        );
+
         Axios.post(`${backServer}/changeuserid`, { user_id: user_id }).then(
             (response) => {
                 console.log(response);
+                Axios.defaults.headers.common[
+                    "authorization"
+                ] = localStorage.getItem("token");
+
                 Axios.post(`${backServer}/updateprofilephoto`, data).then(
                     (response) => {
                         console.log(response.data);

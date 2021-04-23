@@ -7,7 +7,7 @@ const session = require("express-session");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const path = require("path");
-
+const { checkAuth } = require("./utils/passport");
 const frontendURI = "http://localhost:3000";
 
 app.use(express.json());

@@ -2,18 +2,15 @@ const express = require("express");
 const router = express.Router();
 const { STATUS_CODE, MESSAGES } = require("../utils/constants");
 const kafka = require("../kafka/client");
+var jwt = require("jsonwebtoken");
+const { secret } = require("../utils/config");
+const { auth } = require("../utils/passport");
+auth();
 
 //Signup
 router.post("/", (req, res) => {
     console.log("Inside Signup POST");
     console.log("Request Body: ", req.body);
-    // let msg = req.body;
-    // if (error) {
-    //     msg.error = error.details[0].message;
-    //     return res
-    //         .status(STATUS_CODE.BAD_REQUEST)
-    //         .send(error.details[0].message);
-    // }
 
     kafka.make_request("signup", req.body, function (err, result) {
         console.log("In results Signup");
@@ -48,13 +45,14 @@ router.post("/", (req, res) => {
                 path: "/",
             });
             req.session.user = result;
-            // res.writeHead(200, {
-            //     "Content-type": "text/plain",
-            // });
-            // res.end("Adding a user successful!");
-            return res
-                .status(STATUS_CODE.SUCCESS)
-                .send(JSON.stringify(userDetails));
+            // Create token if the password matched and no error was thrown
+            var token = jwt.sign(userDetails, secret, {
+                expiresIn: 10080, // in seconds
+            });
+
+            console.log("token, ", token);
+
+            return res.status(STATUS_CODE.SUCCESS).end("JWT " + token);
         }
     });
 });

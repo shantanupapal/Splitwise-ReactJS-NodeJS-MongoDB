@@ -50,6 +50,10 @@ class GroupById extends Component {
         const expense_id = value;
         const group_id = localStorage.getItem("group_id");
         const by = localStorage.getItem("user_id");
+        Axios.defaults.headers.common["authorization"] = localStorage.getItem(
+            "token"
+        );
+
         Axios.post(`${backServer}/addcomment`, {
             group_id: group_id,
             expense_id: expense_id,
@@ -106,6 +110,10 @@ class GroupById extends Component {
                 dangerMode: true,
             }).then((willDelete) => {
                 if (willDelete) {
+                    Axios.defaults.headers.common[
+                        "authorization"
+                    ] = localStorage.getItem("token");
+
                     Axios.post(`${backServer}/deletecomment`, {
                         expense_id: expense_id,
                         comment_id: comment_id,
@@ -185,6 +193,9 @@ class GroupById extends Component {
         console.log("amount: ", amount);
         console.log("payer: ", payer);
         console.log("liables: ", liables);
+        Axios.defaults.headers.common["authorization"] = localStorage.getItem(
+            "token"
+        );
 
         Axios.post(`${backServer}/addexpense`, {
             group_id: group_id,
@@ -212,6 +223,10 @@ class GroupById extends Component {
         this.setState({ id: id });
 
         // //Get all group members
+        Axios.defaults.headers.common["authorization"] = localStorage.getItem(
+            "token"
+        );
+
         Axios.post(`${backServer}/getallgroupmembers`, {
             group_id: id,
         })
@@ -232,6 +247,10 @@ class GroupById extends Component {
             })
             .then(() => {
                 console.log("State: ", this.state);
+                Axios.defaults.headers.common[
+                    "authorization"
+                ] = localStorage.getItem("token");
+
                 Axios.post(`${backServer}/getgroupexpenses`, {
                     group_id: id,
                 })
