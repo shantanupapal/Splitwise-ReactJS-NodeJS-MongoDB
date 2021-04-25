@@ -52,7 +52,7 @@ class MyGroupsCenter extends Component {
     leaveGroup = (id) => {
         const i_owe = JSON.parse(localStorage.getItem("i_owe"));
         const they_owe = JSON.parse(localStorage.getItem("they_owe"));
-        const user_id = parseInt(localStorage.getItem("user_id"));
+        const user_id = localStorage.getItem("user_id");
         if (they_owe.length > 0) {
             // localStorage.removeItem("they_owe");
             swal(
@@ -79,9 +79,28 @@ class MyGroupsCenter extends Component {
             })
                 .then((response) => {
                     swal("Group leaved successsfully.");
+                    const myPendingGroups = this.state.myPendingGroups;
+                    this.state.myGroups.forEach((group) => {
+                        if (group._id === id) {
+                            myPendingGroups.push(group);
+                        }
+                    });
+                    const myGroups = this.state.myGroups.filter((group) => {
+                        console.log(typeof group._id);
+                        console.log(typeof id);
+                        return group._id !== id;
+                    });
+
+                    console.log("Pending groups: ", myPendingGroups);
+                    console.log("My groups: ", myGroups);
+                    this.setState({
+                        myPendingGroups,
+                        myGroups,
+                    });
+                    console.log("state", this.state.myPendingGroups);
                 })
                 .then(() => {
-                    window.location.reload();
+                    // window.location.reload();
                 })
                 .catch((err) => {
                     console.log("Error: ", err);

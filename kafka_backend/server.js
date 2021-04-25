@@ -26,6 +26,7 @@ const getgroupexpenses = require("./services/getgroupexpenses");
 const recentactivity = require("./services/recentactivity");
 const addcomment = require("./services/addcomment");
 const deletecomment = require("./services/deletecomment");
+const leavegroup = require("./services/leavegroup");
 
 //MongoDB connection
 connectMongoDB();
@@ -80,7 +81,7 @@ handleTopicRequest("getgroupexpenses", getgroupexpenses);
 handleTopicRequest("recentactivity", recentactivity);
 handleTopicRequest("addcomment", addcomment);
 handleTopicRequest("deletecomment", deletecomment);
-// handleTopicRequest("messages", messageService);
+handleTopicRequest("leavegroup", leavegroup);
 // handleTopicRequest("bookmarks", bookmarkService);
 // handleTopicRequest("account", accountService);
 // handleTopicRequest("search", searchService);
