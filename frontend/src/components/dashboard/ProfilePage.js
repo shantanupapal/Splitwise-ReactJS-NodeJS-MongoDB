@@ -44,6 +44,7 @@ const ProfilePage = () => {
                 localStorage.setItem("currency", currency);
                 localStorage.setItem("timezone", timezone);
                 localStorage.setItem("language", language);
+                swal("", "Profile updated", "success");
             })
             .catch((err) => {
                 console.log("Error: " + err);
@@ -97,7 +98,7 @@ const ProfilePage = () => {
                 <div className="row">
                     <div className="col-sm-6">
                         <img
-                            src={backServer + "/images/" + profilePhoto1}
+                            src={profilePhoto}
                             className=""
                             alt="profilepic"
                             style={{

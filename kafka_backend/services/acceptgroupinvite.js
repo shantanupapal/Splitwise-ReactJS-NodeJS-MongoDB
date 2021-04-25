@@ -1,14 +1,15 @@
 "use strict";
 const Group = require("../models/groups");
 const { STATUS_CODE, MESSAGES } = require("../utils/constants");
+const mongoose = require("mongoose");
 
 let handle_request = (message, callback) => {
     console.log("Inside Kafka Method accept-invite. Message ", message);
 
     Group.findOneAndUpdate(
         {
-            _id: message.group_id,
-            "members._id": message.user_id,
+            _id: mongoose.Types.ObjectId(message.group_id),
+            "members._id": mongoose.Types.ObjectId(message.user_id),
         },
         {
             $set: {

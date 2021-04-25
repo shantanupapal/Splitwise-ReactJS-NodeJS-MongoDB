@@ -9,6 +9,7 @@ const upload = multer();
 // const pipeline = promisify(require("stream").pipeline);
 const app = require("../app");
 const { uploadFile } = require("../config/s3");
+const kafka = require("../kafka/client");
 router.post(
     "/",
     upload.single("profilephoto"),
@@ -31,14 +32,30 @@ router.post(
 
             profilephoto.mv("public/" + filename);
             console.log("File OBject: ", req.files);
-            const result = await uploadFile(req.files.profilephoto);
-            console.log("result: ", result);
+            // const result = await uploadFile(req.files.profilephoto);
+            // console.log("result: ", result);
 
-            if (result) {
-                //UPLOAD FILENAME TO DB USING KAFKA
-                res.status(200).send(JSON.stringify(filename));
-            }
-           
+            reqBody = {
+                user_id: user_id_photochange,
+                filename: filename,
+            };
+
+            kafka.make_request("updateprofilephoto", reqBody, (err, result) => {
+                console.log("In results accept group");
+                console.log("Results: ", result);
+                if (err) {
+                    console.log("Error", err);
+                    return res.status(err.status).send(err.data);
+                } else if (result.status === 200) {
+                    console.log("Invitation accept successfully.");
+                    res.status(200).send(JSON.stringify(filename));
+                }
+            });
+
+            // if (result) {
+            //     //UPLOAD FILENAME TO DB USING KAFKA
+
+            // }
         }
     }
 );

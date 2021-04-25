@@ -27,6 +27,7 @@ const recentactivity = require("./services/recentactivity");
 const addcomment = require("./services/addcomment");
 const deletecomment = require("./services/deletecomment");
 const leavegroup = require("./services/leavegroup");
+const updateprofilephoto = require("./services/updateprofilephoto");
 
 //MongoDB connection
 connectMongoDB();
@@ -82,7 +83,7 @@ handleTopicRequest("recentactivity", recentactivity);
 handleTopicRequest("addcomment", addcomment);
 handleTopicRequest("deletecomment", deletecomment);
 handleTopicRequest("leavegroup", leavegroup);
-// handleTopicRequest("bookmarks", bookmarkService);
+handleTopicRequest("updateprofilephoto", updateprofilephoto);
 // handleTopicRequest("account", accountService);
 // handleTopicRequest("search", searchService);
 // handleTopicRequest("list", listService);
