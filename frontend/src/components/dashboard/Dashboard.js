@@ -81,6 +81,10 @@ class Dashboard extends Component {
                         ...this.state,
                         i_owe: [],
                     });
+                    localStorage.setItem(
+                        "i_owe",
+                        JSON.stringify(this.state.i_owe)
+                    );
                 })
                 .catch((err) => {
                     console.log("Error: ", err);
