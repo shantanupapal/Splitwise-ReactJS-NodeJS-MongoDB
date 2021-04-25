@@ -27,20 +27,12 @@ router.post("/", checkAuth, (req, res) => {
             const get_names = [];
             const they_owe = [];
             const i_owe = [];
-            // results.forEach((result))
-            // results.forEach((result) => {
-            //     if (result.user_1 === user) {
-            //         // they_owe.push([result.user_2, result.amount]);
-            //         they_owe_get_names.push(
-            //             mongoose.Types.ObjectId(result.user_2)
-            //         );
-            //     }
-            // });
+            const dashboard_details = {};
             results.forEach((result) => {
-                if (result.user_1 === user) {
+                if (result.user_1 === user && result.amount !== 0) {
                     they_owe.push([result.user_2, result.amount]);
                     get_names.push(mongoose.Types.ObjectId(result.user_2));
-                } else {
+                } else if (result.user_2 === user && result.amount !== 0) {
                     i_owe.push([result.user_1, result.amount]);
                     get_names.push(mongoose.Types.ObjectId(result.user_1));
                 }
@@ -57,37 +49,48 @@ router.post("/", checkAuth, (req, res) => {
                     } else {
                         console.log("Names: ", names);
                         (they_owe_final = []), (i_owe_final = []);
-                        names.forEach((name) => {
-                            String(name);
+                        names.forEach((person) => {
+                            String(person._id);
                             they_owe.forEach((ower) => {
-                                if (name._id == ower[0]) {
+                                if (person._id == ower[0]) {
                                     console.log("is equal");
                                     // ower["name"] = name.name;
-                                    ower[2] = name.name;
+                                    they_owe_final.push([
+                                        ower[0],
+                                        ower[1],
+                                        person.name,
+                                    ]);
+                                    // ower[2] = person.name;
                                 }
                             });
                         });
 
-                        names.forEach((name) => {
-                            String(name);
+                        names.forEach((person) => {
+                            String(person._id);
                             i_owe.forEach((ower) => {
-                                if (name._id == ower[0]) {
+                                if (person._id == ower[0]) {
                                     console.log("is equal");
                                     // ower["name"] = name.name;
-                                    ower[2] = name.name;
+                                    i_owe_final.push([
+                                        ower[0],
+                                        ower[1],
+                                        person.name,
+                                    ]);
+                                    // ower[2] = person.name;
                                 }
                             });
                         });
+                        const dashboard_details = {
+                            they_owe: they_owe_final,
+                            i_owe: i_owe_final,
+                        };
+                        console.log("TO SEND: ", dashboard_details);
+                        return res
+                            .status(STATUS_CODE.SUCCESS)
+                            .send(dashboard_details);
                     }
                 }
-            ).then(() => {
-                const dashboard_details = {
-                    they_owe: they_owe,
-                    i_owe: i_owe,
-                };
-                console.log("TO SEND: ", dashboard_details);
-                return res.status(STATUS_CODE.SUCCESS).send(dashboard_details);
-            });
+            ).then(() => {});
         }
     });
 });

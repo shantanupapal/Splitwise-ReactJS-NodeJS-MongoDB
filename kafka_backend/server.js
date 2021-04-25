@@ -24,6 +24,8 @@ const addexpense = require("./services/addexpense");
 const dashboarddetails = require("./services/dashboarddetails");
 const getgroupexpenses = require("./services/getgroupexpenses");
 const recentactivity = require("./services/recentactivity");
+const addcomment = require("./services/addcomment");
+const deletecomment = require("./services/deletecomment");
 
 //MongoDB connection
 connectMongoDB();
@@ -76,8 +78,8 @@ handleTopicRequest("addexpense", addexpense);
 handleTopicRequest("dashboarddetails", dashboarddetails);
 handleTopicRequest("getgroupexpenses", getgroupexpenses);
 handleTopicRequest("recentactivity", recentactivity);
-// handleTopicRequest("tweets", tweetService);
-// handleTopicRequest("tweet_actions", tweetActionService);
+handleTopicRequest("addcomment", addcomment);
+handleTopicRequest("deletecomment", deletecomment);
 // handleTopicRequest("messages", messageService);
 // handleTopicRequest("bookmarks", bookmarkService);
 // handleTopicRequest("account", accountService);

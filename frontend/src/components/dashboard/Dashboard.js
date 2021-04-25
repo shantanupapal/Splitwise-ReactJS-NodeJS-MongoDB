@@ -19,67 +19,27 @@ class Dashboard extends Component {
         );
         Axios.post(`${backServer}/dashboarddetails`, { user_id: user_id })
             .then((response) => {
-                console.log("got response 200", response.data.i_owe);
-                console.log("got response 200", response.data.they_owe);
-                this.setState({
-                    i_owe: response.data.i_owe,
-                    they_owe: response.data.they_owe,
-                });
-                localStorage.setItem(
-                    "i_owe",
-                    JSON.stringify(response.data.i_owe)
-                );
-                localStorage.setItem(
-                    "they_owe",
-                    JSON.stringify(response.data.they_owe)
-                );
-                // if (response.status === 201) {
-                //     console.log("got response 201", response.data.they_owe);
-                //     this.setState({
-                //         they_owe: response.data.they_owe,
-                //     });
-
-                //     localStorage.setItem(
-                //         "they_owe",
-                //         JSON.stringify(response.data.they_owe)
-                //     );
-                //     localStorage.setItem(
-                //         "i_owe",
-                //         JSON.stringify(response.data.i_owe)
-                //     );
-                // } else if (response.status === 202) {
-                //     console.log("got response 202 ", response.data.i_owe);
-                //     this.setState({
-                //         i_owe: response.data.i_owe,
-                //     });
-
-                //     localStorage.setItem(
-                //         "i_owe",
-                //         JSON.stringify(response.data.i_owe)
-                //     );
-                //     localStorage.setItem(
-                //         "they_owe",
-                //         JSON.stringify(response.data.they_owe)
-                //     );
-                // } else if (response.status === 200) {
-                //     console.log("got response 200", response.data.i_owe);
-                //     console.log("got response 200", response.data.they_owe);
-                //     this.setState({
-                //         i_owe: response.data.i_owe,
-                //         they_owe: response.data.they_owe,
-                //     });
-                //     localStorage.setItem(
-                //         "i_owe",
-                //         JSON.stringify(response.data.i_owe)
-                //     );
-                //     localStorage.setItem(
-                //         "they_owe",
-                //         JSON.stringify(response.data.they_owe)
-                //     );
-                // } else {
-                //     localStorage.setItem("i_owe", JSON.stringify(0));
-                //     localStorage.setItem("they_owe", JSON.stringify(0));
-                // }
+                if (response.status === 201) {
+                    this.setState({
+                        i_owe: [],
+                        they_owe: [],
+                    });
+                } else if (response.status === 200) {
+                    console.log("got response 200", response.data.i_owe);
+                    console.log("got response 200", response.data.they_owe);
+                    this.setState({
+                        i_owe: response.data.i_owe,
+                        they_owe: response.data.they_owe,
+                    });
+                    localStorage.setItem(
+                        "i_owe",
+                        JSON.stringify(response.data.i_owe)
+                    );
+                    localStorage.setItem(
+                        "they_owe",
+                        JSON.stringify(response.data.they_owe)
+                    );
+                }
             })
             .catch((err) => {
                 console.log(err);
@@ -87,20 +47,25 @@ class Dashboard extends Component {
     };
 
     handleSettle = () => {
-        const i_owe = JSON.parse(localStorage.getItem("i_owe"));
+        const i_owe = this.state.i_owe;
+        const they_owe = this.state.they_owe;
         const owers = [];
         console.log("iowe", i_owe);
         // const they_owe = localStorage.getItem("they_owe");
-        if (i_owe.length === 0) {
+        if (i_owe.length === 0 && they_owe.length === 0) {
+            swal("", "You are already settled up with everyone.", "success");
+        } else if (i_owe.length === 0 && they_owe.length === 0) {
             swal(
-                "You are not supposed to pay anyone. Ask others to settle up."
+                "",
+                "You are not supposed to pay anyone. Ask others to settle up.",
+                "warning"
             );
         } else {
             i_owe.forEach((ower) => {
                 owers.push(ower[0]);
             });
             console.log("owers", owers);
-            const user_id = parseInt(localStorage.getItem("user_id"));
+            const user_id = localStorage.getItem("user_id");
             console.log("user to settle: ", user_id);
             Axios.defaults.headers.common[
                 "authorization"
@@ -111,10 +76,11 @@ class Dashboard extends Component {
                 owers: owers,
             })
                 .then((response) => {
-                    // this.forceUpdate();
-                    window.location.reload();
-                    // localStorage.setItem(("i_owe", 0));
-                    // localStorage.setItem(("they_owe", 0));
+                    swal("", "You have paid all your dues.", "success");
+                    this.setState({
+                        ...this.state,
+                        i_owe: [],
+                    });
                 })
                 .catch((err) => {
                     console.log("Error: ", err);
@@ -127,38 +93,6 @@ class Dashboard extends Component {
         const currency = currency_ls.split(" ")[0];
         const i_owe_all = this.state.i_owe;
         const they_owe_all = this.state.they_owe;
-        // const they_owe_names = [];
-        // const i_owe_names = [];
-        // const they_owe = [];
-        // const i_owe = [];
-        // they_owe_all.forEach((they) => {
-        //     // console.log(they[2]);
-        //     if (they_owe_names.includes(they[2])) {
-        //         // console.log("yes");
-        //         // console.log(they_owe.indexOf(they));
-        //         they_owe.splice(they_owe.indexOf(they) + 1, 1, they);
-        //     } else {
-        //         they_owe_names.push(they[2]);
-        //         they_owe.push(they);
-        //         // console.log("they owe names: ", they_owe);
-        //         // console.log("not");
-        //     }
-        // });
-
-        // i_owe_all.forEach((they) => {
-        //     // console.log(they[2]);
-        //     if (i_owe_names.includes(they[2])) {
-        //         // console.log("yes");
-        //         // console.log(they_owe.indexOf(they));
-        //         i_owe.splice(i_owe.indexOf(they) + 1, 1, they);
-        //     } else {
-        //         i_owe_names.push(they[2]);
-        //         i_owe.push(they);
-        //         // console.log("they owe names: ", i_owe);
-        //         // console.log("not");
-        //     }
-        // });
-
         let i_owe_total = 0;
         let they_owe_total = 0;
         console.log(i_owe_all);
