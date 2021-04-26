@@ -30,7 +30,6 @@ router.post("/", (req, res) => {
                 currency: "INR (₹)",
                 timezone: "(GMT-08:00) Pacific Time (US&amp; Canada)",
                 language: "English",
-                token: token,
             };
             // console.log("Result from db");
             // console.log(result);
