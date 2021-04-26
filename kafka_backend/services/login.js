@@ -27,8 +27,6 @@ let handle_request = async (message, callback) => {
                         user.password,
                         (err, response) => {
                             if (response) {
-                                // response.status = STATUS_CODE.SUCCESS;
-                                // response.data = user._id;
                                 return callback(null, user);
                             } else if (err) {
                                 console.log("Error: ", err);
@@ -39,9 +37,6 @@ let handle_request = async (message, callback) => {
                             }
                         }
                     );
-                    // if (!bcrypt.compareSync(msg.password, user.Password)) {
-                    //     console.log('Invalid Credentials!');
-                    //     callback(null, null);
                 } else {
                     let err = {};
                     err.status = STATUS_CODE.NOT_SUCCESS;

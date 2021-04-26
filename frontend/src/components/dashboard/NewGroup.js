@@ -19,23 +19,6 @@ class NewGroup extends Component {
         allUsers: [],
     };
 
-    // createUI() {
-    //     return this.state.groupMembers.map((el, i) => (
-    //         <div key={i}>
-    //             <input
-    //                 type="text"
-    //                 value={el.groupMember || ""}
-    //                 onChange={this.handleChange.bind(this, i)}
-    //             />
-    //             <input
-    //                 type="button"
-    //                 value="remove"
-    //                 onClick={this.removeOnClick.bind(this, i)}
-    //             />
-    //         </div>
-    //     ));
-    // }
-
     componentWillMount = () => {
         //FETCH ALL USERNAMES AND STORE IN LOCALSTORAGE
         console.log("DID MOUNT");

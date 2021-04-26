@@ -1,4 +1,0 @@
-[2021-04-03 20:45:05,490] INFO Socket error occurred: localhost/127.0.0.1:2181: Connection reset (org.apache.zookeeper.ClientCnxn)
-[2021-04-03 20:45:05,950] INFO [GroupCoordinator 0]: Member myapp-faf13af1-b8dd-4dcc-b91d-6561b6deeb09 in group test has failed, removing it from the group (kafka.coordinator.group.GroupCoordinator)
-[2021-04-03 20:45:05,978] INFO [GroupCoordinator 0]: Preparing to rebalance group test in state PreparingRebalance with old generation 1 (__consumer_offsets-48) (reason: removing member myapp-faf13af1-b8dd-4dcc-b91d-6561b6deeb09 on heartbeat expiration) (kafka.coordinator.group.GroupCoordinator)
-[2021-04-03 20:45:05,980] INFO [GroupCoordinator 0]: Group test with generation 2 is now empty (__consumer_offsets-48) (kafka.coordinator.group.GroupCoordinator)

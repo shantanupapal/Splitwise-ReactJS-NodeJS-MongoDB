@@ -7,7 +7,7 @@ const { checkAuth } = require("../utils/passport");
 const kafka = require("../kafka/client");
 
 router.post("/", checkAuth, (req, res) => {
-    console.log("Inside Add COmment POST");
+    console.log("Inside Delete Comment POST");
     console.log("Request: ", req.body);
 
     kafka.make_request("deletecomment", req.body, function (err, result) {

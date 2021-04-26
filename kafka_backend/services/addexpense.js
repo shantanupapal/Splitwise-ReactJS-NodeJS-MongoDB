@@ -19,35 +19,6 @@ let handle_request = async (message, callback) => {
         }
     });
 
-    //add to one_to_one
-    // liables.forEach((liable) => {
-    //     const one_to_one_entry = new one_to_one({
-    //         user_1: message.payer,
-    //         user_2: liable,
-    //         amount: share,
-    //     });
-
-    //     one_to_one_entry.save().then(
-    //         (doc) => {
-    //             console.log("Expense added successfully to one_to_one.", doc);
-    //             response.status = STATUS_CODE.SUCCESS;
-    //             response.data = MESSAGES.SUCCESS;
-    //             // return callback(null, response);
-    //             // return callback(null, doc);
-    //         },
-    //         (err) => {
-    //             console.log("Unable to add expense to one_to_one", err);
-    //             err.status = STATUS_CODE.INTERNAL_SERVER_ERROR;
-    //             err.data = MESSAGES.INTERNAL_SERVER_ERROR;
-    //             // return callback(err, null);
-    //         }
-    //     );
-    // });
-
-    /**
-     * Case 1 : If direct entry found
-     */
-
     liables.forEach((liable) => {
         one_to_one.findOne(
             { $and: [{ user_1: message.payer }, { user_2: liable }] },
@@ -164,15 +135,6 @@ let handle_request = async (message, callback) => {
             }
         );
     });
-
-    // const comments = [];
-    // const today = new Date();
-    // const comment = {
-    //     content: "hello",
-    //     by: message.payer,
-    //     created_at: today,
-    // };
-    // comments.push(comment);
 
     //add to expense
     const expense = new Expense({

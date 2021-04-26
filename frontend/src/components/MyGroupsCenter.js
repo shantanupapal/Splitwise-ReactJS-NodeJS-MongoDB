@@ -53,15 +53,14 @@ class MyGroupsCenter extends Component {
         const i_owe = JSON.parse(localStorage.getItem("i_owe"));
         const they_owe = JSON.parse(localStorage.getItem("they_owe"));
         const user_id = localStorage.getItem("user_id");
-        // if (they_owe.length > 0) {
-        //     // localStorage.removeItem("they_owe");
-        //     swal(
-        //         "Oops!",
-        //         "You are owed some amount from other members. Please clear all dues and then try to leave group. Ask others to settle up.",
-        //         "error"
-        //     );
-        // } else
-        if (i_owe.length > 0) {
+        if (they_owe.length > 0) {
+            // localStorage.removeItem("they_owe");
+            swal(
+                "Oops!",
+                "You are owed some amount from other members. Please clear all dues and then try to leave group. Ask others to settle up.",
+                "error"
+            );
+        } else if (i_owe.length > 0) {
             swal(
                 "Oops!",
                 "You owe some amount to other members. Please clear all dues and then try to leave group. Go and settle up from your Dashboard.",

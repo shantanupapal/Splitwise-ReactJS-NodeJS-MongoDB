@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 
 class Activities extends Component {
-    // state = {
-    //     activities: this.props.activities,
-    //     loading: this.props.loading,
-    // };
     render() {
         if (this.props.loading) {
             return <h2>Loading ...</h2>;

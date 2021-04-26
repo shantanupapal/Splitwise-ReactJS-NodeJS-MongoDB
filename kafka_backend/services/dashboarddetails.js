@@ -9,16 +9,6 @@ let handle_request = async (message, callback) => {
     one_to_one.find(
         {
             $or: [
-                // {
-                //     user_1: new mongoose.Types.ObjectId(
-                //         "606de88a94d62009943233"
-                //     ),
-                // },
-                // {
-                //     user_1: new mongoose.Types.ObjectId(
-                //         "606de88a94d62009943233"
-                //     ),
-                // },
                 { user_1: new mongoose.Types.ObjectId(message.user_id) },
                 { user_2: new mongoose.Types.ObjectId(message.user_id) },
             ],

@@ -144,22 +144,6 @@ class GroupById extends Component {
                                     break;
                                 }
                             }
-                            // refresh_expenses.forEach((expense) => {
-                            //     if (expense_id === expense[4]) {
-                            //         let index = 0;
-                            //         expense[5].forEach((comment) => {
-                            //             if (comment_id === comment[3]) {
-                            //                 console.log("inif");
-                            //                 return;
-                            //             } else {
-                            //                 console.log("else");
-                            //                 index = index + 1;
-                            //             }
-                            //         });
-                            //         expense[5].splice(index, 1);
-                            //         return;
-                            //     }
-                            // });
                             this.setState({
                                 ...this.state,
                                 all_expenses: refresh_expenses,
@@ -291,12 +275,6 @@ class GroupById extends Component {
                                 expense[4],
                                 comments,
                             ]);
-                            // all_expenses.push([
-                            //     expense.fullDate,
-                            //     expense.description,
-                            //     expense.name,
-                            //     expense.total_amount,
-                            // ]);
                         });
                         console.log("final all expenses: ", all_expenses);
                         // const number_of_expenses = all_expenses.length;

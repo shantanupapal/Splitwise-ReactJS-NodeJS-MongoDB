@@ -3,17 +3,6 @@ const connection = new require("./kafka/connection");
 const connectMongoDB = require("./utils/dbConnection");
 
 //import topics files
-// const signupService = require("./services/signup");
-// const profileService = require("./services/profile");
-// const followService = require("./services/follow");
-// const tweetService = require("./services/tweets");
-// const tweetActionService = require("./services/tweetActions");
-// const messageService = require("./services/messages");
-// const bookmarkService = require("./services/bookmark");
-// const accountService = require("./services/account");
-// const searchService = require("./services/search");
-// const listService = require("./services/list");
-// const analyticsService = require("./services/analytics");
 const signupService = require("./services/signup");
 const loginService = require("./services/login");
 const updateProfileService = require("./services/updateprofile");
@@ -84,7 +73,3 @@ handleTopicRequest("addcomment", addcomment);
 handleTopicRequest("deletecomment", deletecomment);
 handleTopicRequest("leavegroup", leavegroup);
 handleTopicRequest("updateprofilephoto", updateprofilephoto);
-// handleTopicRequest("account", accountService);
-// handleTopicRequest("search", searchService);
-// handleTopicRequest("list", listService);
-// handleTopicRequest("analytics", analyticsService);

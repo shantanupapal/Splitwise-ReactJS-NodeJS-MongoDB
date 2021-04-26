@@ -17,10 +17,12 @@ router.post("/", checkAuth, (req, res) => {
             console.log("Error", err);
             return res
                 .status(STATUS_CODE.INTERNAL_SERVER_ERROR)
-                .send(MESSAGES.INTERNAL_SERVER_ERROR);
+                .send("Internal server error");
         } else if (result) {
             console.log("Comment added successfully.");
-            return res.status(STATUS_CODE.SUCCESS).send(MESSAGES.SUCCESS);
+            return res
+                .status(STATUS_CODE.SUCCESS)
+                .send("Comment added successfully.");
         }
     });
 });

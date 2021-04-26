@@ -10,13 +10,6 @@ let handle_request = async (message, callback) => {
 
     let response = {};
 
-    // const saltRounds = 10;
-    //User creation query
-
-    // const profileId = mongooseTypes.ObjectId();
-
-    //Check if group name exists
-
     Group.findOne(
         {
             groupname: message.name,
@@ -54,9 +47,6 @@ let handle_request = async (message, callback) => {
                         creator_id: message.creator_id,
                         members: members_to_add,
                     });
-                    // console.log("members_to_add: ", members_to_add);
-
-                    // console.log("Group: ", group);
 
                     group.save().then(
                         (doc) => {

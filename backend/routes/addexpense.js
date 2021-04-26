@@ -14,10 +14,12 @@ router.post("/", checkAuth, (req, res) => {
         console.log("Results: ", result);
         if (err) {
             console.log("Error", err);
-            return res.status(err.status).send(err.data);
+            return res.status(err.status).send("Internal server error");
         } else if (result) {
             console.log("Expense added successfully.");
-            return res.status(result.status).send(result.data);
+            return res
+                .status(result.status)
+                .send("Expense added successfully.");
         }
     });
 });

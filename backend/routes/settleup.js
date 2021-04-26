@@ -1,12 +1,10 @@
 const express = require("express");
 const router = express.Router();
-// const pool = require("../pool");
 const one_to_one = require("../models/one_to_one");
 const { STATUS_CODE, MESSAGES } = require("../utils/constants");
 const { checkAuth } = require("../utils/passport");
 const mongoose = require("mongoose");
-// ObjectId("606de88a94d6200994323367");
-// ObjectId("606dc54894d6200994323365");
+
 router.post("/", checkAuth, (req, res) => {
     const user = req.body.user_id;
     const owers = req.body.owers;
