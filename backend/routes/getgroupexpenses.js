@@ -28,18 +28,18 @@ getDateFormat = (dateString) => {
 };
 //GetGroupExpense
 router.post("/", checkAuth, (req, res) => {
-    console.log("Inside Group Expense GET");
-    console.log("For: ", req.body);
+    // console.log("Inside Group Expense GET");
+    // console.log("For: ", req.body);
 
     kafka.make_request("getgroupexpenses", req.body, function (err, result) {
-        console.log("In results Group Expense");
+        // console.log("In results Group Expense");
 
         if (err) {
             console.log("Error", err);
             return res.status(err.status).send(err.data);
         } else if (result) {
             const expenses = [];
-            console.log("Group Expenses fetch successful: ", result);
+            // console.log("Group Expenses fetch successful: ", result);
             result.forEach((expense) => {
                 const date = getDateFormat(expense.createdAt);
                 expenses.push([
@@ -53,7 +53,7 @@ router.post("/", checkAuth, (req, res) => {
                 // console.log("Payers: ", payer.payers[0]);
             });
 
-            console.log("All expense: ", expenses);
+            // console.log("All expense: ", expenses);
 
             return res.status(STATUS_CODE.SUCCESS).send(expenses);
         }

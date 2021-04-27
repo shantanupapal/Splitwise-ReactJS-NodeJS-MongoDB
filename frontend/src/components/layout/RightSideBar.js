@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import Axios from "axios";
 import backServer from "../../webConfig";
-import swal from "sweetalert";
 
 class RightSideBar extends Component {
     state = { borrowers_balances: [], payers_balances: [] };
 
     componentDidMount = () => {
-        const group_id = parseInt(localStorage.getItem("group_id"));
+        const group_id = localStorage.getItem("group_id");
 
         const payers_balances = [];
         const borrowers_balances = [];
@@ -16,17 +15,17 @@ class RightSideBar extends Component {
             "token"
         );
 
-        Axios.post(`${backServer}/getgroupbalancedetails`, {
+        Axios.post(`${backServer}/getgroupbalances`, {
             group_id: group_id,
         })
             .then((response) => {
                 console.log("All balances: ", response.data);
                 response.data.forEach((balance) => {
-                    if (parseInt(balance[2]) < 0) {
-                        borrowers_balances.push([balance[0], balance[2]]);
+                    if (balance[1] < 0) {
+                        borrowers_balances.push([balance[2], balance[1]]);
                     }
-                    if (balance[2] > 0) {
-                        payers_balances.push([balance[0], balance[2]]);
+                    if (balance[1] > 0) {
+                        payers_balances.push([balance[2], balance[1]]);
                     }
                 });
 

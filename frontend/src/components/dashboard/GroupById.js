@@ -587,6 +587,8 @@ class GroupById extends Component {
                                                                                 this
                                                                                     .handleChange
                                                                             }
+                                                                            maxlength="30"
+                                                                            required
                                                                         />
                                                                     </div>
                                                                 </div>
@@ -620,6 +622,7 @@ class GroupById extends Component {
                                                                                     this
                                                                                         .handleChange
                                                                                 }
+                                                                                required
                                                                             ></input>
                                                                         </div>
                                                                     </div>
@@ -680,7 +683,7 @@ class GroupById extends Component {
                             </div>
                         </div>
                         <div className="col-xl-3" style={{ marginTop: "50px" }}>
-                            {/** <RightSideBar />*/}
+                            <RightSideBar />
                         </div>
                     </div>
                 </div>

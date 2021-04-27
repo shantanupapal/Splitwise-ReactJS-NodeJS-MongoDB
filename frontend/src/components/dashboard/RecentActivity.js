@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import LeftSideBar from "../layout/LeftSideBar";
 import MainNavbar from "../layout/MainNavbar";
-import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import Axios from "axios";
 import backServer from "../../webConfig";

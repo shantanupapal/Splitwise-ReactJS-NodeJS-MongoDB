@@ -63,6 +63,7 @@ class Login extends Component {
                                         className="form-control"
                                         id="email"
                                         onChange={this.handleChange}
+                                        required
                                     />
                                 </div>
                                 <div className="form-group formForLogin">
@@ -72,6 +73,7 @@ class Login extends Component {
                                         className="form-control"
                                         id="password"
                                         onChange={this.handleChange}
+                                        required
                                     />
                                 </div>
                                 <button

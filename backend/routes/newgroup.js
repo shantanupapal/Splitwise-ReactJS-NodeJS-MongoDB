@@ -10,7 +10,7 @@ router.post("/", checkAuth, (req, res) => {
     console.log("Request Body: ", req.body);
 
     kafka.make_request("newgroup", req.body, function (err, result) {
-        console.log("In results Signup");
+        console.log("In results New Group");
         console.log("Results: ", result);
         if (err) {
             console.log("Error", err);
@@ -18,6 +18,10 @@ router.post("/", checkAuth, (req, res) => {
         } else if (result.status === 200) {
             console.log("Group created successfully.");
             return res.status(STATUS_CODE.SUCCESS).send(res.data);
+        } else if (result.status === 201) {
+            return res
+                .status(STATUS_CODE.NOT_SUCCESS)
+                .send(MESSAGES.USER_ALREADY_EXISTS);
         }
     });
 });

@@ -27,12 +27,19 @@ let handle_request = async (message, callback) => {
                         user.password,
                         (err, response) => {
                             if (response) {
+                                console.log(response);
                                 return callback(null, user);
                             } else if (err) {
                                 console.log("Error: ", err);
                                 let err = {};
                                 err.status = STATUS_CODE.BAD_REQUEST;
                                 err.data = MESSAGES.INVALID_INPUTS;
+                                return callback(err, null);
+                            } else {
+                                let err = {};
+                                err.status = STATUS_CODE.NOT_SUCCESS;
+                                err.data = MESSAGES.USER_NOT_EXIST;
+                                console.log("Incorrect Password");
                                 return callback(err, null);
                             }
                         }
@@ -41,6 +48,7 @@ let handle_request = async (message, callback) => {
                     let err = {};
                     err.status = STATUS_CODE.NOT_SUCCESS;
                     err.data = MESSAGES.USER_NOT_EXIST;
+                    console.log("Incorrect Username");
                     return callback(err, null);
                 }
             }

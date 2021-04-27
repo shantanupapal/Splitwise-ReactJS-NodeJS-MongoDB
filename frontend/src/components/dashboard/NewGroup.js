@@ -6,8 +6,10 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import backServer from "../../webConfig";
 import Axios from "axios";
-import { withRouter } from "react-router-dom";
+
 import swal from "sweetalert";
+
+import ProfilePageNav from "../layout/ProfilePageNav";
 // import swal from "@sweetalert/with-react";
 
 class NewGroup extends Component {
@@ -151,12 +153,21 @@ class NewGroup extends Component {
                     creator_id: creator_id,
                 })
                     .then((response) => {
-                        console.log(response.status);
-                        console.log("Group created successfully");
-                        this.props.history.push("/Center");
+                        if (response.status === 201) {
+                            swal(
+                                "",
+                                "Group name is not available. Please try other name",
+                                "error"
+                            );
+                        } else if (response.status === 200) {
+                            console.log(response.status);
+                            console.log("Group created successfully");
+                            this.props.history.push("/Center");
+                        }
                     })
                     .catch((err) => {
-                        console.log(err);
+                        console.log("er: ", err.data);
+                        swal("", "", "error");
                     });
             }
         }
@@ -169,99 +180,114 @@ class NewGroup extends Component {
         const { loggedIn } = this.props;
         if (!loggedIn) return <Redirect to="/Login" />;
         return (
-            <div className="container h-100 d-flex justify-content-center addGroupMain">
-                <div className="row align-items-center">
-                    <div className="col forMainLogo">
-                        <img src={centerlogo} alt="" />
-                    </div>
-                    <div className="col">
-                        <div className="welcomeName">
-                            <p>START A NEW GROUP</p>{" "}
+            <>
+                <ProfilePageNav />
+                <div className="container h-100 d-flex justify-content-center addGroupMain">
+                    <div className="row align-items-center">
+                        <div className="col forMainLogo">
+                            <img src={centerlogo} alt="" />
                         </div>
-                        <form onSubmit={this.handleSubmit}>
-                            <div className="form-group formForNewGroup">
-                                <label htmlFor="">
-                                    My group shall be called...
-                                </label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    id="groupName"
-                                    onChange={(e) => {
-                                        this.setState({
-                                            groupName: e.target.value,
-                                        });
-                                        console.log(this.state);
-                                    }}
-                                    size="10"
-                                    style={{
-                                        paddingBottom: "10px",
-                                    }}
-                                />
-                                <hr className="hrTagAddGroup" />
-                                <div className="welcomeName">
-                                    <p>GROUP MEMBERS</p>
-                                </div>
-                                <div>
-                                    <p>{creator}</p>
-                                </div>
-                                <div className="container">
-                                    {this.state.groupMembers.map((el, i) => (
-                                        <div
-                                            key={i}
-                                            className="row addPersonRow"
-                                        >
-                                            <div className="col-sm-10 ">
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                    value={"" || el.groupMember}
-                                                    onChange={(e) =>
-                                                        this.handleChange(i, e)
-                                                    }
-                                                />
-                                                {this.showSuggestions()}
-                                            </div>
-                                            <div className="col-sm-2">
-                                                <Link
-                                                    style={{
-                                                        textDecoration: "None",
-                                                    }}
-                                                    onClick={() =>
-                                                        this.removeOnClick(i)
-                                                    }
-                                                >
-                                                    <span
-                                                        style={{
-                                                            fontSize: "15px",
-                                                        }}
-                                                    >
-                                                        &#10006;
-                                                    </span>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                                <Link
-                                    style={{ textDecoration: "None" }}
-                                    onClick={() => this.addOnClick()}
-                                >
-                                    + Add a person
-                                </Link>{" "}
-                                <br></br>
-                                <hr className="hrTagAddGroup" />
-                                <button
-                                    type="submit"
-                                    className="btn btn-danger submitButton"
-                                >
-                                    Save
-                                </button>
+                        <div className="col">
+                            <div className="welcomeName">
+                                <p>START A NEW GROUP</p>{" "}
                             </div>
-                        </form>
+                            <form onSubmit={this.handleSubmit}>
+                                <div className="form-group formForNewGroup">
+                                    <label htmlFor="">
+                                        My group shall be called...
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="groupName"
+                                        onChange={(e) => {
+                                            this.setState({
+                                                groupName: e.target.value,
+                                            });
+                                            console.log(this.state);
+                                        }}
+                                        size="10"
+                                        style={{
+                                            paddingBottom: "10px",
+                                        }}
+                                    />
+                                    <hr className="hrTagAddGroup" />
+                                    <div className="welcomeName">
+                                        <p>GROUP MEMBERS</p>
+                                    </div>
+                                    <div>
+                                        <p>{creator}</p>
+                                    </div>
+                                    <div className="container">
+                                        {this.state.groupMembers.map(
+                                            (el, i) => (
+                                                <div
+                                                    key={i}
+                                                    className="row addPersonRow"
+                                                >
+                                                    <div className="col-sm-10 ">
+                                                        <input
+                                                            type="text"
+                                                            className="form-control"
+                                                            value={
+                                                                "" ||
+                                                                el.groupMember
+                                                            }
+                                                            onChange={(e) =>
+                                                                this.handleChange(
+                                                                    i,
+                                                                    e
+                                                                )
+                                                            }
+                                                        />
+                                                        {this.showSuggestions()}
+                                                    </div>
+                                                    <div className="col-sm-2">
+                                                        <Link
+                                                            style={{
+                                                                textDecoration:
+                                                                    "None",
+                                                            }}
+                                                            onClick={() =>
+                                                                this.removeOnClick(
+                                                                    i
+                                                                )
+                                                            }
+                                                        >
+                                                            <span
+                                                                style={{
+                                                                    fontSize:
+                                                                        "15px",
+                                                                }}
+                                                            >
+                                                                &#10006;
+                                                            </span>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            )
+                                        )}
+                                    </div>
+                                    <Link
+                                        style={{ textDecoration: "None" }}
+                                        onClick={() => this.addOnClick()}
+                                    >
+                                        + Add a person
+                                    </Link>{" "}
+                                    <br></br>
+                                    <hr className="hrTagAddGroup" />
+                                    <button
+                                        type="submit"
+                                        className="btn btn-danger submitButton"
+                                    >
+                                        Save
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </>
         );
     }
 }

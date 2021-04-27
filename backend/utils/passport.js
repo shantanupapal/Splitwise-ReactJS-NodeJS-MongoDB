@@ -15,8 +15,8 @@ function auth() {
     passport.use(
         new JwtStrategy(opts, (jwt_payload, callback) => {
             const user_id = jwt_payload.user_id;
-            console.log("jwt_payload: ", jwt_payload);
-            console.log("usr_id: ", user_id);
+            // console.log("jwt_payload: ", jwt_payload);
+            // console.log("usr_id: ", user_id);
             User.findById(user_id, (err, results) => {
                 if (err) {
                     return callback(err, false);

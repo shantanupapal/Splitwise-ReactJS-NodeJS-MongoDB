@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import profilePhoto from "../../images/profilePhoto.png";
 import "../../App.css";
 import ProfilePageNav from "../layout/ProfilePageNav";
 import Axios from "axios";
@@ -8,7 +7,7 @@ import swal from "sweetalert";
 
 const ProfilePage = () => {
     const [name, setName] = useState(localStorage.getItem("name"));
-    // const [email, setEmail] = useState(localStorage.getItem("email"));
+    const [email, setEmail] = useState(localStorage.getItem("email"));
     const [currency, setCurrency] = useState(localStorage.getItem("currency"));
     const [timezone, setTimezone] = useState(localStorage.getItem("timezone"));
     const [language, setLanguage] = useState(localStorage.getItem("language"));
@@ -20,35 +19,60 @@ const ProfilePage = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        Axios.defaults.withCredentials = true;
+
+        if (isNaN(phone)) {
+            swal(
+                "",
+                "Phone number can't be characters. Please enter a valid 10 digit phone number",
+                "error"
+            );
+        } else if (phone.length !== 10) {
+            swal("", "Please enter a valid 10 digit phone number", "error");
+        } else {
+            Axios.defaults.withCredentials = true;
+            Axios.defaults.headers.common[
+                "authorization"
+            ] = localStorage.getItem("token");
+
+            Axios.post(`${backServer}/updateprofile`, {
+                name: name,
+                email: email,
+                phone: phone,
+                currency: currency,
+                timezone: timezone,
+                language: language,
+                user_id: user_id,
+            })
+                .then((response) => {
+                    if (response.status === 201) {
+                        swal(
+                            "",
+                            "Email ID already exists. Please try another Email",
+                            "error"
+                        );
+                    } else {
+                        console.log("Done: " + response.data.name);
+                        localStorage.setItem("name", name);
+                        localStorage.setItem("email", email);
+                        localStorage.setItem("phone", phone);
+                        localStorage.setItem("currency", currency);
+                        localStorage.setItem("timezone", timezone);
+                        localStorage.setItem("language", language);
+                        swal("", "Profile updated", "success");
+                    }
+                })
+                .catch((err) => {
+                    console.log("Error: " + err);
+                    swal(
+                        "Opps!",
+                        "Something went wrong. Please try again later",
+                        "error"
+                    );
+                });
+        }
+
         // console.log(name, email, phone, currency, timezone, language, user_id);
         // console.log("IM in handlesubmit");
-        Axios.defaults.headers.common["authorization"] = localStorage.getItem(
-            "token"
-        );
-
-        Axios.post(`${backServer}/updateprofile`, {
-            name: name,
-            // email: email,
-            phone: phone,
-            currency: currency,
-            timezone: timezone,
-            language: language,
-            user_id: user_id,
-        })
-            .then((response) => {
-                console.log("Done: " + response.data.name);
-                localStorage.setItem("name", name);
-                // localStorage.setItem("email", email);
-                localStorage.setItem("phone", phone);
-                localStorage.setItem("currency", currency);
-                localStorage.setItem("timezone", timezone);
-                localStorage.setItem("language", language);
-                swal("", "Profile updated", "success");
-            })
-            .catch((err) => {
-                console.log("Error: " + err);
-            });
     };
 
     const handleSubmitPhoto = (e) => {
@@ -158,7 +182,7 @@ const ProfilePage = () => {
                                     />
                                 </div>
 
-                                {/* <div className="form-group-profilePage">
+                                <div className="form-group-profilePage">
                                     <label htmlFor="email">
                                         Your email address
                                     </label>
@@ -172,7 +196,7 @@ const ProfilePage = () => {
                                         }}
                                         defaultValue={email}
                                     />
-                                </div>*/}
+                                </div>
 
                                 <div className="form-group-profilePage">
                                     <label htmlFor="phone">

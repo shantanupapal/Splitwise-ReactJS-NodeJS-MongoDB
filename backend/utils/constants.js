@@ -13,5 +13,6 @@ module.exports = {
         SUCCESS: "Successful",
         INVALID_STATE: "State Name is not valid",
         DATA_NOT_FOUND: "Data doesn't Exists",
+        USER_ALREADY_EXISTS: "User Already Exists",
     },
 };

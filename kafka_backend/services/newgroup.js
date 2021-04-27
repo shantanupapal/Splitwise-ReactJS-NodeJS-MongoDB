@@ -10,9 +10,9 @@ let handle_request = async (message, callback) => {
 
     let response = {};
 
-    Group.findOne(
+    Group.find(
         {
-            groupname: message.name,
+            groupname: message.groupname,
         },
         (err, group) => {
             if (err) {
@@ -22,7 +22,7 @@ let handle_request = async (message, callback) => {
                 if (group) {
                     let err = {};
                     console.log("Group Exists!", group);
-                    err.status = STATUS_CODE.BAD_REQUEST;
+                    err.status = STATUS_CODE.NOT_SUCCESS;
                     err.data = MESSAGES.USER_ALREADY_EXISTS;
                     return callback(err, null);
                 } else {

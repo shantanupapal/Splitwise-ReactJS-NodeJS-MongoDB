@@ -17,6 +17,7 @@ const addcomment = require("./services/addcomment");
 const deletecomment = require("./services/deletecomment");
 const leavegroup = require("./services/leavegroup");
 const updateprofilephoto = require("./services/updateprofilephoto");
+const getgroupbalances = require("./services/getgroupbalances");
 
 //MongoDB connection
 connectMongoDB();
@@ -73,3 +74,4 @@ handleTopicRequest("addcomment", addcomment);
 handleTopicRequest("deletecomment", deletecomment);
 handleTopicRequest("leavegroup", leavegroup);
 handleTopicRequest("updateprofilephoto", updateprofilephoto);
+handleTopicRequest("getgroupbalances", getgroupbalances);
